@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "356986784214",
+    "project_id": "merchmoney-213d8",
+    "storage_bucket": "merchmoney-213d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356986784214:android:f7068c57c21d6cb2dcfc77",
+        "android_client_info": {
+          "package_name": "com.example.merchmoney"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCun8QHIfPhed1fTdyaqskERceMKyNMvVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
