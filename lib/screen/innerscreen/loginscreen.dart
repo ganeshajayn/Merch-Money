@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:merchmoney/helper/helperfunctions.dart';
+import 'package:merchmoney/screen/homescreen/bottomnavigation.dart';
 import 'package:merchmoney/screen/homescreen/homescreen.dart';
 import 'package:merchmoney/screen/innerscreen/signupscreen.dart';
 import 'package:merchmoney/service/authservice.dart';
@@ -180,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
           await HelperFunctions.saveUserEmailSf(email);
           // ignore: use_build_context_synchronously
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => const Navbar(),
           ));
         } else {
           showSnackbar(context, Colors.red, value);

@@ -185,6 +185,7 @@ class _SignupScreenState extends State<SignupScreen> {
         if (value == true) {
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSf(email);
+          // ignore: use_build_context_synchronously
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => const HomeScreen(),
           ));

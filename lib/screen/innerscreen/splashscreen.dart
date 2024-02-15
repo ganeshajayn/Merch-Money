@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:merchmoney/helper/helperfunctions.dart';
+import 'package:merchmoney/screen/homescreen/bottomnavigation.dart';
 
 import 'package:merchmoney/screen/homescreen/homescreen.dart';
 
@@ -59,6 +60,6 @@ class _SplashScreenState extends State<SplashScreen> {
         splashIconSize: 500,
         duration: 5000,
         splashTransition: SplashTransition.sizeTransition,
-        nextScreen: _isSignedIn ? const HomeScreen() : const Introscreen());
+        nextScreen: _isSignedIn ? const Navbar() : const Introscreen());
   }
 }
