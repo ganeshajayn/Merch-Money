@@ -47,6 +47,7 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
                       radius: 70,
                       backgroundColor: Colors.white,
                       backgroundImage: image != null ? FileImage(image!) : null,
+                      child: image == null ? const Icon(Icons.person) : null,
                     ),
                     Positioned(
                       right: 22,

@@ -30,7 +30,7 @@ class _NavbarState extends State<Navbar> {
     super.initState();
     pages = [
       const HomeScreen(),
-      const CategoryScreen(),
+      CategoryScreen(),
       const Graphscreen(),
       const Settingscreen()
     ];
