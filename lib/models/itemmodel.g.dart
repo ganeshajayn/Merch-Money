@@ -1,40 +1,46 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'categorypagemodel.dart';
+part of 'itemmodel.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CategorypageAdapter extends TypeAdapter<Categorypage> {
+class ItempageAdapter extends TypeAdapter<Itempage> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
-  Categorypage read(BinaryReader reader) {
+  Itempage read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Categorypage(
-      imagepath: fields[0] as String,
-      categorykey: fields[3] as String?,
-      categoryname: fields[1] as String,
-      isassetimage: fields[2] as bool,
+    return Itempage(
+      imagepath: fields[0] as String?,
+      productname: fields[1] as String?,
+      totalstock: fields[2] as String?,
+      currentrate: fields[3] as String?,
+      categorykey: fields[5] as String?,
+      itemkey: fields[4] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Categorypage obj) {
+  void write(BinaryWriter writer, Itempage obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.imagepath)
       ..writeByte(1)
-      ..write(obj.categoryname)
+      ..write(obj.productname)
       ..writeByte(2)
-      ..write(obj.isassetimage)
+      ..write(obj.totalstock)
       ..writeByte(3)
+      ..write(obj.currentrate)
+      ..writeByte(4)
+      ..write(obj.itemkey)
+      ..writeByte(5)
       ..write(obj.categorykey);
   }
 
@@ -44,7 +50,7 @@ class CategorypageAdapter extends TypeAdapter<Categorypage> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CategorypageAdapter &&
+      other is ItempageAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -82,6 +82,8 @@ class ElevatedButtonnWidget extends StatelessWidget {
   final Color? backgroundcolor;
   final Color? textcolor;
   final RoundedRectangleBorder? customshape;
+  final double? fontsize;
+  final FontWeight? fontWeight;
   const ElevatedButtonnWidget({
     super.key,
     required this.onpressed,
@@ -89,6 +91,8 @@ class ElevatedButtonnWidget extends StatelessWidget {
     this.backgroundcolor,
     this.textcolor,
     this.customshape,
+    this.fontsize,
+    this.fontWeight,
   });
 
   @override
@@ -99,7 +103,10 @@ class ElevatedButtonnWidget extends StatelessWidget {
           foregroundColor: textcolor,
           backgroundColor: backgroundcolor,
           shape: customshape),
-      child: Text(buttontext),
+      child: Text(
+        buttontext,
+        style: TextStyle(fontSize: fontsize, fontWeight: fontWeight),
+      ),
     );
   }
 }

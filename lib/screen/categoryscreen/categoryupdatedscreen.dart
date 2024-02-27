@@ -6,22 +6,36 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:merchmoney/models/categorypagemodel.dart';
-import 'package:merchmoney/service/functions.dart';
+import 'package:merchmoney/screen/categoryscreen/functions.dart';
+
 import 'package:merchmoney/widgets/textfield.dart';
 
-class Categoryadded extends StatefulWidget {
-  const Categoryadded({super.key, required this.loadCategories});
-  final dynamic loadCategories;
+class Categoryupdated extends StatefulWidget {
+  const Categoryupdated({
+    super.key,
+    required this.categoryOfIndex,
+    this.loadcategories,
+  });
+  final Categorypage categoryOfIndex;
+  final dynamic loadcategories;
   @override
-  State<Categoryadded> createState() => _CategoryaddedState();
+  State<Categoryupdated> createState() => _CategoryupdatedState();
 }
 
-class _CategoryaddedState extends State<Categoryadded> {
-  File? selectImage;
-  String? images;
+class _CategoryupdatedState extends State<Categoryupdated> {
+  File? updatedImage;
+  String? updatedImagePath;
+  String? initialImage;
 
-  TextEditingController categorycontroller = TextEditingController();
+  TextEditingController categoryupdatecontroller = TextEditingController();
   @override
+  void initState() {
+    categoryupdatecontroller.text = widget.categoryOfIndex.categoryname;
+    initialImage = widget.categoryOfIndex.imagepath;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -56,14 +70,15 @@ class _CategoryaddedState extends State<Categoryadded> {
                 ),
                 InkWell(
                   onTap: () {
-                    showcategoryimage(context);
+                    showcategoryupdateimage(context);
                   },
                   child: CircleAvatar(
                     backgroundColor: const Color(0xFF030655),
                     radius: 80,
-                    backgroundImage:
-                        images != null ? FileImage(File(images ?? '')) : null,
-                    child: images == null
+                    backgroundImage: updatedImagePath != null
+                        ? FileImage(File(updatedImagePath ?? ''))
+                        : FileImage(File(initialImage!)),
+                    child: updatedImagePath == null
                         ? const Icon(
                             Icons.add_a_photo_outlined,
                             size: 30,
@@ -76,7 +91,7 @@ class _CategoryaddedState extends State<Categoryadded> {
                   height: 40,
                 ),
                 TextFormFieldWidget(
-                  controller: categorycontroller,
+                  controller: categoryupdatecontroller,
                   prefixIcon: const Icon(Icons.list),
                   hintText: "Add your category ",
                   labeltext: "CATEGORY NAME",
@@ -88,21 +103,49 @@ class _CategoryaddedState extends State<Categoryadded> {
                   height: height * 0.05,
                   width: width * 0.75,
                   child: ElevatedButtonnWidget(
-                    onpressed: () {
-                      // String image = images ?? '';
-                      // String categoryname = categorycontroller.text;
+                      buttontext: "Update",
+                      backgroundcolor: const Color(0xFF030655),
+                      onpressed: () {
+                        if (updatedImagePath != null || initialImage != null) {
+                          if (categoryupdatecontroller.text.isNotEmpty) {
+                            final updatedCategory = Categorypage(
+                              imagepath: updatedImagePath == null
+                                  ? initialImage!
+                                  : updatedImagePath!,
+                              categorykey: widget.categoryOfIndex.categorykey,
+                              categoryname: categoryupdatecontroller.text,
+                              isassetimage: false,
+                            );
+                            updatecategory(
+                                widget.categoryOfIndex.categorykey ?? '',
+                                updatedCategory);
 
-                      addcategory(Categorypage(
-                          isassetimage: false,
-                          imagepath: images!,
-                          categoryname: categorycontroller.text));
-
-                      Navigator.of(context).pop(true);
-                      widget.loadCategories;
-                    },
-                    buttontext: "Save",
-                    backgroundcolor: const Color(0xFF030655),
-                  ),
+                            Navigator.of(context).pop(true);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                backgroundColor: Colors.white,
+                                duration: const Duration(seconds: 2),
+                                content: Text(
+                                  "Please enter a category name ",
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: const Color(0xFF030655)),
+                                )));
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: Colors.white,
+                              duration: const Duration(seconds: 2),
+                              content: Text(
+                                "Please select an Image",
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: const Color(0xFF030655)),
+                              )));
+                        }
+                      }),
                 )
               ],
             ),
@@ -112,7 +155,7 @@ class _CategoryaddedState extends State<Categoryadded> {
     );
   }
 
-  void showcategoryimage(BuildContext context) {
+  void showcategoryupdateimage(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -166,31 +209,29 @@ class _CategoryaddedState extends State<Categoryadded> {
         });
   }
 
-  Future pickimageFromgallery() async {
+  Future<void> pickimageFromgallery() async {
     final returnImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnImage == null) {
       return;
     }
     setState(() {
-      selectImage = File(returnImage.path);
-      images = returnImage.path;
+      updatedImage = File(returnImage.path);
+      updatedImagePath = returnImage.path;
     });
-    // ignore: use_build_context_synchronously
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(); // Move pop outside of the function call
   }
 
-  Future capturecategoryimage() async {
+  Future<void> capturecategoryimage() async {
     final returnImage =
         await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnImage == null) {
       return;
     }
     setState(() {
-      selectImage = File(returnImage.path);
-      images = returnImage.path;
+      updatedImage = File(returnImage.path);
+      updatedImagePath = returnImage.path;
     });
-    // ignore: use_build_context_synchronously
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(); // Move pop outside of the function call
   }
 }

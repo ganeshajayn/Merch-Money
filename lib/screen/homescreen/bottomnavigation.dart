@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:merchmoney/screen/homescreen/categorypage.dart';
-import 'package:merchmoney/screen/homescreen/graphscreen.dart';
+import 'package:merchmoney/screen/categoryscreen/categorypage.dart';
 import 'package:merchmoney/screen/homescreen/homescreen.dart';
 import 'package:merchmoney/screen/homescreen/settingscren.dart';
 
@@ -30,8 +28,8 @@ class _NavbarState extends State<Navbar> {
     super.initState();
     pages = [
       const HomeScreen(),
-      CategoryScreen(),
-      const Graphscreen(),
+      const CategoryScreen(),
+      const Settingscreen(),
       const Settingscreen()
     ];
   }

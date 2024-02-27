@@ -5,8 +5,6 @@ import 'package:lottie/lottie.dart';
 import 'package:merchmoney/helper/helperfunctions.dart';
 import 'package:merchmoney/screen/homescreen/bottomnavigation.dart';
 
-import 'package:merchmoney/screen/homescreen/homescreen.dart';
-
 import 'package:merchmoney/screen/innerscreen/onboardingscreeen.dart';
 
 class SplashScreen extends StatefulWidget {

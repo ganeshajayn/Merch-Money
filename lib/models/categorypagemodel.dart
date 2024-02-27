@@ -9,9 +9,11 @@ class Categorypage {
   String categoryname;
   @HiveField(2)
   bool isassetimage;
-
+  @HiveField(3)
+  String? categorykey;
   Categorypage(
       {required this.imagepath,
+      this.categorykey,
       required this.categoryname,
       required this.isassetimage});
 }
