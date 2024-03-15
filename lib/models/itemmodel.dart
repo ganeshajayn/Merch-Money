@@ -15,13 +15,23 @@ class Itempage {
   String? itemkey;
   @HiveField(5)
   String? categorykey;
-
-  Itempage({
-    required this.imagepath,
-    required this.productname,
-    required this.totalstock,
-    required this.currentrate,
-    required this.categorykey,
-    required this.itemkey,
-  });
+  @HiveField(6)
+  String? mrprate;
+  @HiveField(7)
+  String? dropdown;
+  @HiveField(8)
+  String? availablestock;
+  @HiveField(9)
+  String? brandname;
+  Itempage(
+      {required this.imagepath,
+      required this.productname,
+      required this.totalstock,
+      required this.currentrate,
+      required this.categorykey,
+      required this.itemkey,
+      required this.mrprate,
+      this.availablestock,
+      this.dropdown,
+      this.brandname});
 }

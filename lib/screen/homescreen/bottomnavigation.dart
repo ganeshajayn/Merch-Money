@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
+import 'package:merchmoney/screen/cartpage/cartscreen.dart';
 import 'package:merchmoney/screen/categoryscreen/categorypage.dart';
 import 'package:merchmoney/screen/homescreen/homescreen.dart';
 import 'package:merchmoney/screen/homescreen/settingscren.dart';
@@ -29,7 +31,7 @@ class _NavbarState extends State<Navbar> {
     pages = [
       const HomeScreen(),
       const CategoryScreen(),
-      const Settingscreen(),
+      const Cartscreen(),
       const Settingscreen()
     ];
   }
@@ -59,8 +61,8 @@ class _NavbarState extends State<Navbar> {
               text: "Category",
             ),
             const GButton(
-              icon: Icons.search,
-              text: "search",
+              icon: Icons.production_quantity_limits,
+              text: "Cart",
             ),
             const GButton(
               icon: Icons.settings,

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:merchmoney/models/categorypagemodel.dart';
 import 'package:merchmoney/models/itemmodel.dart';
@@ -8,10 +9,15 @@ import 'package:merchmoney/screen/destinationfolder/functions.dart';
 import 'package:merchmoney/widgets/textfield.dart';
 
 class Stockaddedpage extends StatefulWidget {
-  const Stockaddedpage(
-      {super.key, this.categoryOfIndex, required this.getItems});
+  const Stockaddedpage({
+    super.key,
+    this.categoryOfIndex,
+    required this.getItems,
+    // required this.isbranded
+  });
   final Categorypage? categoryOfIndex;
   final dynamic getItems;
+  // final bool isbranded;
   @override
   State<Stockaddedpage> createState() => _StockaddedpageState();
 }
@@ -20,9 +26,13 @@ class _StockaddedpageState extends State<Stockaddedpage> {
   TextEditingController itemnamecontroller = TextEditingController();
   TextEditingController itemratecontroller = TextEditingController();
   TextEditingController totalstockcontroller = TextEditingController();
+  TextEditingController mrpratecontroller = TextEditingController();
+  final TextEditingController brandnamecontroller = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   File? itemimage;
   String? pickitemimage = "";
+  String? dropdownvalue;
+  bool isbranded = true;
 
   @override
   void initState() {
@@ -89,21 +99,103 @@ class _StockaddedpageState extends State<Stockaddedpage> {
                           fillcolourvalue: true,
                           labeltext: "Enter the Product Name",
                           hintText: "Product name",
+                          keyboardType: TextInputType.name,
                         ),
                         SizedBox(
-                          height: height * 0.02,
+                          height: height * 0.00,
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                                activeColor: Colors.white,
+                                value: true,
+                                groupValue: isbranded,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isbranded = value!;
+                                  });
+                                }),
+                            Text(
+                              "Brand",
+                              style: GoogleFonts.poppins(color: Colors.white),
+                            ),
+                            SizedBox(
+                              width: width * 0.03,
+                            ),
+                            Radio(
+                                activeColor: Colors.white,
+                                value: false,
+                                groupValue: isbranded,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    isbranded = value!;
+                                  });
+                                }),
+                            Text(
+                              "Non Brand",
+                              style: GoogleFonts.poppins(color: Colors.white),
+                            )
+                          ],
+                        ),
+                        if (isbranded)
+                          TextFormFieldWidget(
+                            controller: brandnamecontroller,
+                            fillcolourvalue: true,
+                            fillColor: Colors.white,
+                            labeltext: "Enter the Brand name",
+                            hintText: "Brand Name",
+                            prefixIcon:
+                                const Icon(Icons.branding_watermark_sharp),
+                          ),
+                        TextFormFieldWidget(
+                          controller: mrpratecontroller,
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.currency_rupee),
+                          fillColor: Colors.white,
+                          fillcolourvalue: true,
+                          labeltext: "Enter the Mrp rate",
+                          hintText: "Mrprate",
+                        ),
+                        SizedBox(
+                          height: height * 0.01,
+                        ),
+                        SizedBox(
+                          width: width * 0.89,
+                          child: DropdownButtonFormField(
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            borderRadius: BorderRadius.circular(20),
+                            value:
+                                "None", // Make sure dropdownvalue has an appropriate initial value
+                            items: <String>["None", "Kg", "per/litre", "Nos"]
+                                .map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value, // Add value here
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownvalue = newValue;
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: height * 0.01,
                         ),
                         TextFormFieldWidget(
                           controller: totalstockcontroller,
                           prefixIcon:
                               const Icon(Icons.production_quantity_limits),
+                          keyboardType: TextInputType.number,
                           fillColor: Colors.white,
                           fillcolourvalue: true,
                           labeltext: "Enter the Quantity",
                           hintText: "Quantity",
-                        ),
-                        SizedBox(
-                          height: height * 0.02,
                         ),
                         TextFormFieldWidget(
                           controller: itemratecontroller,
@@ -112,6 +204,7 @@ class _StockaddedpageState extends State<Stockaddedpage> {
                           fillcolourvalue: true,
                           labeltext: "Enter the Current Rate",
                           hintText: "Rate",
+                          keyboardType: TextInputType.number,
                         ),
                         SizedBox(
                           height: height * 0.02,
@@ -128,16 +221,20 @@ class _StockaddedpageState extends State<Stockaddedpage> {
                                     .millisecondsSinceEpoch
                                     .toString();
                                 final item = Itempage(
+                                    mrprate: mrpratecontroller.text,
+                                    dropdown: dropdownvalue,
                                     imagepath: pickitemimage,
                                     productname: itemnamecontroller.text,
                                     totalstock: totalstockcontroller.text,
                                     currentrate: itemratecontroller.text,
                                     categorykey:
                                         widget.categoryOfIndex!.categorykey,
+                                    brandname: brandnamecontroller.text,
                                     itemkey: key);
-
+                                // isbranded = widget.isbranded;
                                 additem(item, key);
                                 widget.getItems;
+
                                 Navigator.of(context).pop(true);
                               }
                             },

@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:hive/hive.dart';
+import 'package:merchmoney/models/cartmodel.dart';
+
 import 'package:merchmoney/models/categorypagemodel.dart';
 import 'package:merchmoney/models/itemmodel.dart';
+import 'package:merchmoney/screen/cartpage/functions.dart';
 import 'package:merchmoney/screen/destinationfolder/functions.dart';
 import 'package:merchmoney/screen/destinationfolder/stockaddedpage.dart';
 import 'package:merchmoney/screen/editscreen/editscreen.dart';
@@ -111,8 +114,8 @@ class _DestinationpageState extends State<Destinationpage> {
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Container(
-                                              height: 100,
-                                              width: 100,
+                                              height: 90,
+                                              width: 90,
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
@@ -123,7 +126,7 @@ class _DestinationpageState extends State<Destinationpage> {
                                             ),
                                           ),
                                           const SizedBox(
-                                            width: 20,
+                                            width: 5,
                                           ),
                                           Column(
                                             crossAxisAlignment:
@@ -132,24 +135,75 @@ class _DestinationpageState extends State<Destinationpage> {
                                               Text(
                                                 'Name:${item.productname.toString()}',
                                                 style: GoogleFonts.openSans(
-                                                    fontSize: 16,
+                                                    fontSize: 15,
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
                                               Text(
-                                                'Current rate :${item.currentrate.toString()}',
+                                                item.brandname != null &&
+                                                        item.brandname!
+                                                            .isNotEmpty
+                                                    ? 'Brand:${item.brandname.toString()}'
+                                                    : 'Brand : N/A',
                                                 style: GoogleFonts.openSans(
-                                                    fontSize: 16,
+                                                    fontSize: 15,
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
                                               Text(
-                                                'Total Stock : ${item.totalstock.toString()}',
+                                                'Current rate :${item.currentrate.toString()}₹ ',
                                                 style: GoogleFonts.openSans(
-                                                    fontSize: 16,
+                                                    fontSize: 15,
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
+                                              Text(
+                                                'Total Stock : ${item.totalstock.toString()}${item.dropdown}',
+                                                style: GoogleFonts.openSans(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              Text(
+                                                'Available Stock : ${item.availablestock ?? item.totalstock}${item.dropdown}',
+                                                style: GoogleFonts.openSans(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              InkWell(
+                                                child: SizedBox(
+                                                    height: height * 0.05,
+                                                    child:
+                                                        const Icon(Icons.add)),
+                                                onTap: () {
+                                                  print(
+                                                      'Total stock: ${item.totalstock}');
+                                                  showitemdialogue(
+                                                      context: context,
+                                                      itemKey:
+                                                          item.itemkey ?? '',
+                                                      productName:
+                                                          item.productname ??
+                                                              '',
+                                                      imagepath:
+                                                          item.imagepath ?? '',
+                                                      categoryname: widget
+                                                              .categoryOfIndex
+                                                              ?.categoryname ??
+                                                          '',
+                                                      availablestock:
+                                                          item.availablestock ??
+                                                              '',
+                                                      totalstock:
+                                                          item.totalstock ?? '',
+                                                      currentrate:
+                                                          item.currentrate ??
+                                                              '',
+                                                      item: item,
+                                                      index: index);
+                                                },
+                                              )
                                             ],
                                           ),
                                           Row(
@@ -165,6 +219,9 @@ class _DestinationpageState extends State<Destinationpage> {
                                                         .push(MaterialPageRoute(
                                                       builder: (context) =>
                                                           UpdateItemScreen(
+                                                        isbranded: item
+                                                            .brandname!
+                                                            .isNotEmpty,
                                                         item: item,
                                                         getItems:
                                                             initalizeitemlist(),
@@ -213,6 +270,7 @@ class _DestinationpageState extends State<Destinationpage> {
           Navigator.of(context)
               .push(MaterialPageRoute(
             builder: (context) => Stockaddedpage(
+                // isbranded: wid,
                 categoryOfIndex: widget.categoryOfIndex,
                 getItems: initalizeitemlist()),
           ))
@@ -262,6 +320,98 @@ class _DestinationpageState extends State<Destinationpage> {
           ),
         ],
       ),
+    );
+  }
+
+  void showitemdialogue(
+      {required BuildContext context,
+      required String itemKey,
+      required String productName,
+      required String imagepath,
+      required String categoryname,
+      required String availablestock,
+      required String totalstock,
+      required String currentrate,
+      required Itempage item,
+      required int index}) {
+    print(totalstock);
+    print(availablestock);
+    int currentAvailableStock =
+        int.tryParse(availablestock) ?? int.parse(totalstock);
+    TextEditingController quantitycontroller = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          title: const Text("Add Item to Cart"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Enter the Quantity for $productName'),
+              TextFormFieldWidget(
+                controller: quantitycontroller,
+                keyboardType: TextInputType.number,
+                hintText: "Quantity",
+              )
+            ],
+          ),
+          actions: [
+            TextButtonWidget(
+                onpressed: () {
+                  Navigator.of(context).pop();
+                },
+                textbutton: "Cancel"),
+            TextButtonWidget(
+              onpressed: () async {
+                print(currentAvailableStock);
+                int quantity = int.tryParse(quantitycontroller.text) ?? 0;
+
+                if (quantity > 0 && quantity <= currentAvailableStock) {
+                  int updatedAvailableStock = currentAvailableStock - quantity;
+                  // Ensure that available stock doesn't become negative
+                  updatedAvailableStock =
+                      updatedAvailableStock >= 0 ? updatedAvailableStock : 0;
+                  setState(() {
+                    item.availablestock = updatedAvailableStock.toString();
+                  });
+                  print('Item available stock: ${item.availablestock}');
+                  Hive.box<Itempage>('itembox').putAt(index, item);
+
+                  // setState(() {
+                  //   initalizeitemlist();
+                  // });
+
+                  String cartKey =
+                      DateTime.now().millisecondsSinceEpoch.toString();
+                  Cartmodel newcart = Cartmodel(
+                    totalstock: totalstock,
+                    imagepath: imagepath,
+                    quantity: quantity,
+                    cartkey: cartKey,
+                    itemkey: itemKey,
+                    productname: productName,
+                    categorykey: categoryname,
+                    currentrate: currentrate,
+                    item: item,
+                  );
+
+                  addcart(cartKey, newcart);
+                  print('Item added to cart');
+                  getcart();
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: const Text("Added to Cart")),
+                  );
+
+                  Navigator.pop(context); // Pop the current screen
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: const Text('Invalid Quantity')),
+                  );
+                }
+              },
+              textbutton: "Add to Cart",
+            )
+          ]),
     );
   }
 }

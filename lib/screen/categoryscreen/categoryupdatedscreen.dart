@@ -219,6 +219,7 @@ class _CategoryupdatedState extends State<Categoryupdated> {
       updatedImage = File(returnImage.path);
       updatedImagePath = returnImage.path;
     });
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pop(); // Move pop outside of the function call
   }
 
@@ -232,6 +233,7 @@ class _CategoryupdatedState extends State<Categoryupdated> {
       updatedImage = File(returnImage.path);
       updatedImagePath = returnImage.path;
     });
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pop(); // Move pop outside of the function call
   }
 }

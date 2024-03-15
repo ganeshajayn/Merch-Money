@@ -20,18 +20,19 @@ class _ItemDetailsState extends State<ItemDetails> {
         backgroundColor: const Color(0xFF030655),
         elevation: 0,
         centerTitle: true,
-        title: Text(""),
+        title: Text(widget.item.productname ?? ""),
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
+          color: const Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-                color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+                color:
+                    const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
                 spreadRadius: 2,
                 blurRadius: 5,
-                offset: Offset(1, 1)),
+                offset: const Offset(1, 1)),
           ],
         ),
         child: Padding(
@@ -40,12 +41,12 @@ class _ItemDetailsState extends State<ItemDetails> {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 ItemImageContainerWidget(
                     item: widget.item, height: 250, width: 250),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Expanded(
@@ -60,19 +61,37 @@ class _ItemDetailsState extends State<ItemDetails> {
                             fontSize: 25,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          'Rate: ${widget.item.currentrate}',
+                          widget.item.brandname != null &&
+                                  widget.item.brandname!.isNotEmpty
+                              ? 'Brand Name : ${widget.item.brandname}'
+                              : 'Brand Name:N/A',
                           style: GoogleFonts.openSans(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          'Quantity: ${widget.item.totalstock}',
+                          'Current Rate: ${widget.item.currentrate} ₹ ',
                           style: GoogleFonts.openSans(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
+                        Text(
+                          'Total Stock: ${widget.item.totalstock}${widget.item.dropdown}',
+                          style: GoogleFonts.openSans(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'Mrp Rate :${widget.item.mrprate}₹ ',
+                          style: GoogleFonts.openSans(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'Available Stock :${widget.item.availablestock ?? widget.item.totalstock}${widget.item.dropdown}',
+                          style: GoogleFonts.openSans(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        )
                       ],
                     ),
                   ),

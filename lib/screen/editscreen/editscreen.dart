@@ -7,10 +7,15 @@ import 'package:merchmoney/screen/destinationfolder/functions.dart';
 import 'package:merchmoney/widgets/textfield.dart';
 
 class UpdateItemScreen extends StatefulWidget {
-  const UpdateItemScreen(
-      {super.key, required this.item, required this.getItems});
+  const UpdateItemScreen({
+    super.key,
+    required this.item,
+    required this.getItems,
+    required this.isbranded,
+  });
   final Itempage item;
   final dynamic getItems;
+  final bool isbranded;
   @override
   State<UpdateItemScreen> createState() => _UpdateItemScreenState();
 }
@@ -19,9 +24,13 @@ class _UpdateItemScreenState extends State<UpdateItemScreen> {
   TextEditingController itemnameeditingcontroller = TextEditingController();
   TextEditingController totalstockeditingcontroller = TextEditingController();
   TextEditingController totaleditingratecontroller = TextEditingController();
+  TextEditingController mrpratecontroller = TextEditingController();
+  TextEditingController brandnamecontroller = TextEditingController();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   File? itemimage;
   String? pickitemimage = "";
+  String? dropdownvalue;
 
   @override
   void initState() {
@@ -30,7 +39,10 @@ class _UpdateItemScreenState extends State<UpdateItemScreen> {
     itemnameeditingcontroller.text = widget.item.productname ?? '';
     totalstockeditingcontroller.text = widget.item.totalstock ?? '';
     totaleditingratecontroller.text = widget.item.currentrate ?? '';
+    mrpratecontroller.text = widget.item.mrprate ?? '';
+    dropdownvalue = widget.item.dropdown;
     pickitemimage = widget.item.imagepath;
+    brandnamecontroller.text = widget.item.brandname ?? '';
   }
 
   @override
@@ -98,6 +110,23 @@ class _UpdateItemScreenState extends State<UpdateItemScreen> {
                           labeltext: "Enter the Quantity",
                           hintText: "Quantity",
                         ),
+                        if (widget.isbranded)
+                          TextFormFieldWidget(
+                            controller: brandnamecontroller,
+                            prefixIcon: const Icon(Icons.branding_watermark),
+                            fillColor: Colors.white,
+                            fillcolourvalue: true,
+                            labeltext: "Enter the Brand Name",
+                            hintText: "Brand Name",
+                          ),
+                        TextFormFieldWidget(
+                          controller: mrpratecontroller,
+                          fillColor: Colors.white,
+                          fillcolourvalue: true,
+                          labeltext: "Enter the actual rate",
+                          prefixIcon: const Icon(Icons.currency_rupee),
+                          hintText: "Mrprate",
+                        ),
                         SizedBox(
                           height: height * 0.02,
                         ),
@@ -121,17 +150,22 @@ class _UpdateItemScreenState extends State<UpdateItemScreen> {
                               if (formKey.currentState!.validate() &&
                                   pickitemimage != '') {
                                 final item = Itempage(
-                                  imagepath: pickitemimage,
-                                  productname: itemnameeditingcontroller.text,
-                                  totalstock: totalstockeditingcontroller.text,
-                                  currentrate: totaleditingratecontroller.text,
-                                  categorykey: widget.item.categorykey,
-                                  itemkey: widget.item.itemkey,
-                                );
+                                    mrprate: mrpratecontroller.text,
+                                    imagepath: pickitemimage,
+                                    productname: itemnameeditingcontroller.text,
+                                    totalstock:
+                                        totalstockeditingcontroller.text,
+                                    currentrate:
+                                        totaleditingratecontroller.text,
+                                    categorykey: widget.item.categorykey,
+                                    itemkey: widget.item.itemkey,
+                                    brandname: brandnamecontroller.text,
+                                    dropdown: dropdownvalue);
                                 print(widget.item.itemkey);
                                 updateitem(widget.item.itemkey ?? '', item);
                                 print('item is saved $item');
                                 widget.getItems;
+
                                 Navigator.of(context).pop(true);
                               }
                             },
