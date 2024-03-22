@@ -20,19 +20,31 @@ class TransactionmodelAdapter extends TypeAdapter<Transactionmodel> {
       totalprice: fields[0] as double?,
       dateTime: fields[1] as DateTime?,
       transactionkey: fields[2] as String?,
+      username: fields[3] as String?,
+      phonenumber: fields[4] as String?,
+      productname: fields[6] as String?,
+      quantity: fields[5] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Transactionmodel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.totalprice)
       ..writeByte(1)
       ..write(obj.dateTime)
       ..writeByte(2)
-      ..write(obj.transactionkey);
+      ..write(obj.transactionkey)
+      ..writeByte(3)
+      ..write(obj.username)
+      ..writeByte(4)
+      ..write(obj.phonenumber)
+      ..writeByte(5)
+      ..write(obj.quantity)
+      ..writeByte(6)
+      ..write(obj.productname);
   }
 
   @override

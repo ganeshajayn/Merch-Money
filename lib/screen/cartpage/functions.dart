@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:merchmoney/models/cartmodel.dart';
+import 'package:merchmoney/models/itemmodel.dart';
 
 Future<List<Cartmodel>> getcart() async {
   final cartbox = await Hive.openBox<Cartmodel>('cartbox');
@@ -34,3 +35,18 @@ Future<void> deletecart(String key) async {
 //   // Clear all values in the box
 //   await cartbox.clear();
 // }
+Future<void> updatecart(String key, Cartmodel updatecart) async {
+  final cartbox = await Hive.openBox<Cartmodel>('cartbox');
+  if (cartbox.containsKey(key)) {
+    cartbox.put(key, updatecart);
+
+    final itembox = await Hive.openBox<Itempage>('itembox');
+    if (itembox.containsKey(updatecart.itemkey)) {
+      Itempage item = itembox.get(updatecart.itemkey)!;
+      int currentstock = int.parse(item.totalstock ?? '0');
+      int updatedquantity = int.parse(updatecart.quantity.toString());
+      item.availablestock = (currentstock - updatedquantity).toString();
+      itembox.put(updatecart.itemkey, item);
+    }
+  }
+}

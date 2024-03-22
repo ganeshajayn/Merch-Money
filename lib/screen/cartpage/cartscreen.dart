@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -7,12 +8,16 @@ import 'package:merchmoney/models/cartmodel.dart';
 import 'package:merchmoney/models/itemmodel.dart';
 
 import 'package:merchmoney/models/transactionmodel.dart';
+import 'package:merchmoney/screen/biladd/billadd.dart';
+
 import 'package:merchmoney/screen/billsection/billingpage.dart';
 import 'package:merchmoney/screen/billsection/funcions.dart';
 import 'package:merchmoney/screen/cartpage/functions.dart';
 
 class Cartscreen extends StatefulWidget {
-  const Cartscreen({super.key});
+  const Cartscreen({
+    super.key,
+  });
 
   @override
   State<Cartscreen> createState() => _CartscreenState();
@@ -189,7 +194,7 @@ class _CartscreenState extends State<Cartscreen> {
                                         ],
                                       ),
                                       const SizedBox(
-                                        width: 40,
+                                        width: 30,
                                       ),
                                       Row(
                                         children: [
@@ -203,6 +208,15 @@ class _CartscreenState extends State<Cartscreen> {
                                                   cart.cartkey ?? '', cart);
                                             },
                                           ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          IconButton(
+                                              onPressed: () {
+                                                showupdatecart(context,
+                                                    cart.cartkey ?? '');
+                                              },
+                                              icon: const Icon(Icons.edit))
                                         ],
                                       )
                                     ],
@@ -237,20 +251,13 @@ class _CartscreenState extends State<Cartscreen> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    String key =
-                        DateTime.now().microsecondsSinceEpoch.toString();
-                    final value = Transactionmodel(
-                        totalprice: totalprice,
-                        dateTime: DateTime.now(),
-                        transactionkey: key);
-
-                    addtransaction(key, value);
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Transactionscreen(),
-                    ));
-                    // await clearBox();
-                    initalisecart();
-                    print("data is succefully saved $value");
+                    showDialog(
+                      context: context,
+                      builder: (context) => Billingaddscreen(
+                          totalPrice: totalprice,
+                          productname: selectedCart?.productname),
+                    );
+                    print('produtname :${selectedCart?.productname}');
                   },
                   child: const Text("Checkout"),
                 )
@@ -296,5 +303,44 @@ class _CartscreenState extends State<Cartscreen> {
         ],
       ),
     );
+  }
+
+  void showupdatecart(BuildContext context, String cartkey) async {
+    TextEditingController updatequantitycontroller = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Add Quantity"),
+            content: TextField(
+              controller: updatequantitycontroller,
+              decoration:
+                  const InputDecoration(hintText: "Enter the Quantity "),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Cancel")),
+              TextButton(
+                  onPressed: () {
+                    String updatedquantity =
+                        updatequantitycontroller.text.toString();
+                    if (updatedquantity.isNotEmpty) {
+                      int newquantity = int.tryParse(updatedquantity) ?? 0;
+                      Cartmodel updatedcart = cartlist
+                          .firstWhere((cart) => cart.cartkey == cartkey);
+                      updatedcart.quantity = newquantity;
+                      updatecart(cartkey, updatedcart);
+                      print("updated quantity ${updatedquantity}");
+                      calculatetotalprice();
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: const Text("Add"))
+            ],
+          );
+        });
   }
 }
