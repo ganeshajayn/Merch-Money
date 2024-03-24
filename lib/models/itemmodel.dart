@@ -34,4 +34,6 @@ class Itempage {
       this.availablestock,
       this.dropdown,
       this.brandname});
+
+  where(bool Function(dynamic element) param0) {}
 }

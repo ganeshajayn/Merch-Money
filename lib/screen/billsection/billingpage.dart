@@ -37,7 +37,7 @@ class _MyWidgetState extends State<Transactionscreen> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: const Color(0xFF030655),
-          title: Text("Transactions"),
+          title: const Text("Transactions"),
         ),
         body: ListView.builder(
           itemBuilder: (context, index) {
@@ -49,7 +49,8 @@ class _MyWidgetState extends State<Transactionscreen> {
                 ListTile(
                   title: Text(
                     'Name: ${transaction.username}',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,12 +58,10 @@ class _MyWidgetState extends State<Transactionscreen> {
                       Text('Phone Number: ${transaction.phonenumber}'),
                       Text('TotalPrice: ${transaction.totalprice}₹'),
                       Text('Date: ${formatteddate}'),
-                      Text('Products name: ${transaction.productname}'),
-                      Text('Quantity: ${transaction.quantity}'),
                     ],
                   ),
                 ),
-                Divider(
+                const Divider(
                   color: Colors.black,
                 ), // Divider line
               ],

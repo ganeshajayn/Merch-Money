@@ -38,7 +38,6 @@ class _CartscreenState extends State<Cartscreen> {
     setState(() {
       cartlist = list;
       calculatetotalprice();
-      // clearBox();
     });
 
     print('the length of cartlist is ${cartlist.length}');
@@ -252,13 +251,20 @@ class _CartscreenState extends State<Cartscreen> {
                     showDialog(
                       context: context,
                       builder: (context) => Billingaddscreen(
-                          totalPrice: totalprice,
-                          productname: selectedCart?.productname),
-                    );
-                    print('produtname :${selectedCart?.productname}');
+                        initializecart: initalisecart(),
+                        totalPrice: totalprice,
+                        productname: selectedCart?.productname,
+                      ),
+                    ).then((value) {
+                      if (value == true) {
+                        initalisecart();
+                      }
+                    });
+
+                    print('produtname :${cartlist}');
                   },
                   child: const Text("Checkout"),
-                )
+                ),
               ],
             ),
           ),

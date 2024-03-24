@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:merchmoney/models/categorypagemodel.dart'; // Import your Categorypage model
+import 'package:merchmoney/models/itemmodel.dart';
 import 'package:merchmoney/screen/categoryscreen/categoryadded.dart';
 import 'package:merchmoney/screen/categoryscreen/categoryupdatedscreen.dart';
 import 'package:merchmoney/screen/categoryscreen/functions.dart';
@@ -18,6 +20,8 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   List<Categorypage> categories = [];
   List<Categorypage> predefinedcategories = [];
+  TextEditingController searchcontroller = TextEditingController();
+  List<Itempage> searchedProducts = [];
 
   @override
   void initState() {
@@ -88,18 +92,29 @@ class _CategoryScreenState extends State<CategoryScreen> {
             children: [
               SafeArea(
                 child: Container(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  height: height * 0.16,
-                  width: width,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 30),
-                    child: Text(
-                      "Category",
-                      style: GoogleFonts.poppins(
-                          fontSize: 24, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
+                    decoration: const BoxDecoration(color: Colors.white),
+                    height: height * 0.19,
+                    width: width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 0.1),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Category",
+                            style: GoogleFonts.poppins(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
+                          SizedBox(
+                            width: width * 0.92,
+                          )
+                        ],
+                      ),
+                    )),
               ),
               Container(
                 decoration: const BoxDecoration(

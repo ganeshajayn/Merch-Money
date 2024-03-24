@@ -28,13 +28,14 @@ Future<void> deletecart(String key) async {
   }
 }
 
-// Future<void> clearBox() async {
-//   // Open the Hive box
-//   final cartbox = await Hive.openBox<Cartmodel>('cartbox');
+Future<void> clearBox() async {
+  // Open the Hive box
+  final cartbox = await Hive.openBox<Cartmodel>('cartbox');
 
-//   // Clear all values in the box
-//   await cartbox.clear();
-// }
+  // Clear all values in the box
+  await cartbox.clear();
+}
+
 Future<void> updatecart(String key, Cartmodel updatecart) async {
   final cartbox = await Hive.openBox<Cartmodel>('cartbox');
   if (cartbox.containsKey(key)) {

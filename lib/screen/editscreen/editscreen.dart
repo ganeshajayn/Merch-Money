@@ -149,12 +149,19 @@ class _UpdateItemScreenState extends State<UpdateItemScreen> {
                             onpressed: () async {
                               if (formKey.currentState!.validate() &&
                                   pickitemimage != '') {
+                                final int existingstock = int.tryParse(
+                                        widget.item.totalstock ?? '') ??
+                                    0;
+                                final int updatedstock = int.tryParse(
+                                        totalstockeditingcontroller.text) ??
+                                    0;
+                                final String totalstock =
+                                    (existingstock + updatedstock).toString();
                                 final item = Itempage(
                                     mrprate: mrpratecontroller.text,
                                     imagepath: pickitemimage,
                                     productname: itemnameeditingcontroller.text,
-                                    totalstock:
-                                        totalstockeditingcontroller.text,
+                                    totalstock: totalstock,
                                     currentrate:
                                         totaleditingratecontroller.text,
                                     categorykey: widget.item.categorykey,

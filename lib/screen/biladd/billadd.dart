@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:merchmoney/models/transactionmodel.dart';
 import 'package:merchmoney/screen/billsection/billingpage.dart';
 import 'package:merchmoney/screen/billsection/funcions.dart';
+import 'package:merchmoney/screen/cartpage/functions.dart';
+
 import 'package:merchmoney/widgets/textfield.dart';
 
 class Billingaddscreen extends StatefulWidget {
-  const Billingaddscreen(
-      {super.key, required this.totalPrice, required this.productname});
+  const Billingaddscreen({
+    super.key,
+    required this.totalPrice,
+    required this.productname,
+    required this.initializecart,
+  });
   final double? totalPrice;
   final String? productname;
+  final dynamic initializecart;
   @override
   State<Billingaddscreen> createState() => _BillingaddscreenState();
 }
@@ -20,17 +27,17 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Checkout"),
+      title: const Text("Checkout"),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: usernamecontroller,
-            decoration: InputDecoration(labelText: "Name"),
+            decoration: const InputDecoration(labelText: "Name"),
           ),
           TextField(
             controller: phonenumbercontroller,
-            decoration: InputDecoration(labelText: "Phone Number"),
+            decoration: const InputDecoration(labelText: "Phone Number"),
           ),
         ],
       ),
@@ -44,14 +51,14 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text("Invalid Input"),
-                      content: Text("Please Enter valid details"),
+                      title: const Text("Invalid Input"),
+                      content: const Text("Please Enter valid details"),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text("OK"),
+                          child: const Text("OK"),
                         ),
                       ],
                     );
@@ -70,8 +77,10 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                 );
                 addtransaction(key, value);
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Transactionscreen(),
+                  builder: (context) => const Transactionscreen(),
                 ));
+                clearBox();
+                widget.initializecart;
               }
             },
             buttontext: "Save"),
@@ -96,8 +105,10 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
               );
               addtransaction(key, value);
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Transactionscreen(),
+                builder: (context) => const Transactionscreen(),
               ));
+              clearBox();
+              widget.initializecart;
             },
             textbutton: "Skip & Continue")
       ],
