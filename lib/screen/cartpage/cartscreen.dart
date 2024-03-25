@@ -59,10 +59,10 @@ class _CartscreenState extends State<Cartscreen> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Container(
-            color: Colors.white38,
+      body: SafeArea(
+        child: Container(
+          color: Colors.white38,
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -167,31 +167,31 @@ class _CartscreenState extends State<Cartscreen> {
                                           Text(
                                             'Name:${cart.productname}',
                                             style: GoogleFonts.openSans(
-                                                fontSize: 16,
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           Text(
                                             'Add quanity :${cart.quantity}',
                                             style: GoogleFonts.openSans(
-                                                fontSize: 16,
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           Text(
                                             "Category : ${cart.categorykey} ",
                                             style: GoogleFonts.openSans(
-                                                fontSize: 16,
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           Text(
                                             "Currentrate : ${cart.currentrate}",
                                             style: GoogleFonts.openSans(
-                                                fontSize: 16,
+                                                fontSize: 14,
                                                 fontWeight: FontWeight.w600),
                                           )
                                         ],
                                       ),
                                       const SizedBox(
-                                        width: 30,
+                                        width: 18,
                                       ),
                                       Row(
                                         children: [

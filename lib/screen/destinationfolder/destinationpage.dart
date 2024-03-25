@@ -374,7 +374,7 @@ class _DestinationpageState extends State<Destinationpage> {
                     item.availablestock = updatedAvailableStock.toString();
                   });
                   print('Item available stock: ${item.availablestock}');
-                  Hive.box<Itempage>('itembox').putAt(index, item);
+                  // Hive.box<Itempage>('itembox').putAt(index, item);
 
                   // setState(() {
                   //   initalizeitemlist();
