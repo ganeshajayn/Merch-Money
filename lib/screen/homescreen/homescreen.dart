@@ -22,6 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ));
             },
             icon: const Icon(Icons.search)),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Icon(Icons.notification_important_outlined),
+          )
+        ],
       ),
       backgroundColor: const Color(0xFF030655),
     );
