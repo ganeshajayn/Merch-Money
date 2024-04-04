@@ -14,9 +14,9 @@ class Transactionmodel {
   @HiveField(4)
   String? phonenumber;
   @HiveField(5)
-  String? quantity;
+  List<int>? quantity;
   @HiveField(6)
-  String? productname;
+  List<String>? productname;
   Transactionmodel(
       {required this.totalprice,
       required this.dateTime,

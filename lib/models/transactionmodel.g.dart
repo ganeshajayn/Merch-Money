@@ -22,8 +22,8 @@ class TransactionmodelAdapter extends TypeAdapter<Transactionmodel> {
       transactionkey: fields[2] as String?,
       username: fields[3] as String?,
       phonenumber: fields[4] as String?,
-      productname: fields[6] as String?,
-      quantity: fields[5] as String?,
+      productname: (fields[6] as List?)?.cast<String>(),
+      quantity: (fields[5] as List?)?.cast<int>(),
     );
   }
 

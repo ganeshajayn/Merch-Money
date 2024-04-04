@@ -252,8 +252,12 @@ class _CartscreenState extends State<Cartscreen> {
                       context: context,
                       builder: (context) => Billingaddscreen(
                         initializecart: initalisecart(),
-                        totalPrice: totalprice,
-                        productname: selectedCart?.productname,
+                        productsname: cartlist
+                            .map((cart) => cart.productname ?? '')
+                            .toList(),
+                        quantities:
+                            cartlist.map((cart) => cart.quantity ?? 0).toList(),
+                        totalprice: totalprice,
                       ),
                     ).then((value) {
                       if (value == true) {

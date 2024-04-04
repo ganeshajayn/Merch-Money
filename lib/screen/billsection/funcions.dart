@@ -11,3 +11,10 @@ Future<void> addtransaction(String key, Transactionmodel value) async {
   final transactionbox = await Hive.openBox<Transactionmodel>('transactionbox');
   transactionbox.put(key, value);
 }
+
+Future<void> deletetransaction(String key) async {
+  final transactiobox = await Hive.openBox<Transactionmodel>('transactionbox');
+  if (transactiobox.containsKey(key)) {
+    transactiobox.delete(key);
+  }
+}

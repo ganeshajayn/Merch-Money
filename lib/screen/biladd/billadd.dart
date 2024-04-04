@@ -9,12 +9,14 @@ import 'package:merchmoney/widgets/textfield.dart';
 class Billingaddscreen extends StatefulWidget {
   const Billingaddscreen({
     super.key,
-    required this.totalPrice,
-    required this.productname,
     required this.initializecart,
+    this.productsname,
+    this.quantities,
+    this.totalprice,
   });
-  final double? totalPrice;
-  final String? productname;
+  final List<String>? productsname;
+  final List<int>? quantities;
+  final double? totalprice;
   final dynamic initializecart;
   @override
   State<Billingaddscreen> createState() => _BillingaddscreenState();
@@ -68,13 +70,13 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                 // Proceed with saving the transaction
                 String key = DateTime.now().microsecondsSinceEpoch.toString();
                 final value = Transactionmodel(
-                  username: usernamecontroller.text,
-                  phonenumber: phonenumbercontroller.text,
-                  totalprice: widget.totalPrice,
-                  dateTime: DateTime.now(),
-                  transactionkey: key,
-                  productname: widget.productname,
-                );
+                    username: usernamecontroller.text,
+                    phonenumber: phonenumbercontroller.text,
+                    totalprice: widget.totalprice,
+                    dateTime: DateTime.now(),
+                    transactionkey: key,
+                    productname: widget.productsname,
+                    quantity: widget.quantities);
                 addtransaction(key, value);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const Transactionscreen(),
@@ -96,13 +98,13 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
               // Navigate to the next screen
               String key = DateTime.now().microsecondsSinceEpoch.toString();
               final value = Transactionmodel(
-                username: username,
-                phonenumber: phoneNumber,
-                totalprice: widget.totalPrice,
-                dateTime: DateTime.now(),
-                transactionkey: key,
-                productname: widget.productname,
-              );
+                  username: username,
+                  phonenumber: phoneNumber,
+                  totalprice: widget.totalprice,
+                  dateTime: DateTime.now(),
+                  transactionkey: key,
+                  productname: widget.productsname,
+                  quantity: widget.quantities);
               addtransaction(key, value);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const Transactionscreen(),
