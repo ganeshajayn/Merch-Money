@@ -13,7 +13,9 @@ class Billingaddscreen extends StatefulWidget {
     this.productsname,
     this.quantities,
     this.totalprice,
+    this.currentrate,
   });
+  final List<String>? currentrate;
   final List<String>? productsname;
   final List<int>? quantities;
   final double? totalprice;
@@ -76,7 +78,8 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                     dateTime: DateTime.now(),
                     transactionkey: key,
                     productname: widget.productsname,
-                    quantity: widget.quantities);
+                    quantity: widget.quantities,
+                    currentrate: widget.currentrate);
                 addtransaction(key, value);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const Transactionscreen(),
@@ -104,7 +107,8 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                   dateTime: DateTime.now(),
                   transactionkey: key,
                   productname: widget.productsname,
-                  quantity: widget.quantities);
+                  quantity: widget.quantities,
+                  currentrate: widget.currentrate);
               addtransaction(key, value);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const Transactionscreen(),

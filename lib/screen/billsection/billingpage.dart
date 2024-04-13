@@ -17,12 +17,14 @@ class Transactionscreen extends StatefulWidget {
 }
 
 List<Transactionmodel> transactionHistory = [];
+String formatteddate = "";
 
 class _MyWidgetState extends State<Transactionscreen> {
   @override
   void initState() {
     initalizetransaction();
-
+    formatteddate = DateTimeFormat.format(DateTime.now(),
+        format: AmericanDateFormats.dayOfWeek);
     super.initState();
   }
 
@@ -45,8 +47,7 @@ class _MyWidgetState extends State<Transactionscreen> {
         body: ListView.builder(
           itemBuilder: (context, index) {
             final transaction = transactionHistory[index];
-            String formatteddate = DateTimeFormat.format(DateTime.now(),
-                format: AmericanDateFormats.dayOfWeek);
+
             return GestureDetector(
               onTap: () {
                 showbilldetails(transaction);
@@ -91,7 +92,9 @@ class _MyWidgetState extends State<Transactionscreen> {
 
   void showbilldetails(Transactionmodel transaction) async {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Transactiondetails(
+      builder: (context) => TransactionDetails(
+        currentrate: transaction.currentrate,
+        dateTime: formatteddate,
         username: transaction.username ?? '',
         phonenumber: transaction.phonenumber ?? "",
         productname: transaction.productname,

@@ -258,6 +258,9 @@ class _CartscreenState extends State<Cartscreen> {
                         quantities:
                             cartlist.map((cart) => cart.quantity ?? 0).toList(),
                         totalprice: totalprice,
+                        currentrate: cartlist
+                            .map((cart) => cart.currentrate ?? "")
+                            .toList(),
                       ),
                     ).then((value) {
                       if (value == true) {
