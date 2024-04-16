@@ -8,16 +8,17 @@ class TransactionDetails extends StatefulWidget {
   final List<String>? productname;
   final List<int>? quantity;
   final List<String>? currentrate;
-
-  const TransactionDetails({
-    Key? key,
-    required this.dateTime,
-    required this.username,
-    required this.phonenumber,
-    this.quantity,
-    this.productname,
-    this.currentrate,
-  }) : super(key: key);
+  final List<String>? category;
+  const TransactionDetails(
+      {Key? key,
+      required this.dateTime,
+      required this.username,
+      required this.phonenumber,
+      this.quantity,
+      this.productname,
+      this.currentrate,
+      this.category})
+      : super(key: key);
 
   @override
   _TransactionDetailsState createState() => _TransactionDetailsState();

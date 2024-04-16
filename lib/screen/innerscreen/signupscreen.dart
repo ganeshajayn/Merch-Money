@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:merchmoney/helper/helperfunctions.dart';
 import 'package:merchmoney/screen/homescreen/bottomnavigation.dart';
+import 'package:merchmoney/screen/homescreen/homescreen.dart';
 
-import 'package:merchmoney/screen/homescreen/introprofilescreen.dart';
+import 'package:merchmoney/screen/profilescreen/introprofilescreen.dart';
+import 'package:merchmoney/screen/innerscreen/loginscreen.dart';
+
 import 'package:merchmoney/service/authservice.dart';
 import 'package:merchmoney/widgets/textfield.dart';
 
@@ -19,7 +22,9 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController confirmpasswordcontroller = TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
   String email = "";
+  String fullname = "";
   String password = "";
   String confirmPassword = "";
   bool isloading = false;
@@ -63,6 +68,28 @@ class _SignupScreenState extends State<SignupScreen> {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500),
                           ),
+                        ),
+                        TextFormFieldWidget(
+                          controller: namecontroller,
+                          fillColor: Colors.white,
+                          fillcolourvalue: true,
+                          keyboardType: TextInputType.name,
+                          obscureValue: false,
+                          prefixIcon: const Icon(Icons.person),
+                          hintText: "Enter your name",
+                          labeltext: "Name",
+                          onChanged: (val) {
+                            setState(() {
+                              fullname = val;
+                            });
+                          },
+                          validator: (val) {
+                            if (val!.isNotEmpty) {
+                              return null;
+                            } else {
+                              return "Name cannot be empty";
+                            }
+                          },
                         ),
                         TextFormFieldWidget(
                           controller: emailcontroller,
@@ -161,7 +188,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextButtonWidget(
                         onpressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const IntroprofileScreen(),
+                            builder: (context) => const LoginScreen(),
                           ));
                         },
                         textbutton: "Sign In",
@@ -181,14 +208,21 @@ class _SignupScreenState extends State<SignupScreen> {
         isloading = true;
       });
       await authserrvice
-          .registerUserWithEmailandPassword(email, password)
+          .registerUserWithEmailandPassword(
+        email,
+        password,
+        fullname,
+      )
           .then((value) async {
         if (value == true) {
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSf(email);
+          await HelperFunctions.saveUserNameSf(fullname);
           // ignore: use_build_context_synchronously
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const Navbar(),
+            builder: (context) => Navbar(
+              email: emailcontroller.text,
+            ),
           ));
         } else {
           showSnackbar(context, Colors.red, value);

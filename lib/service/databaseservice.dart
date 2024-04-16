@@ -5,10 +5,10 @@ class DatabaseService {
   DatabaseService({this.uid});
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection("users");
-  Future savingUserData(String email) async {
-    return await userCollection.doc(uid).set({
-      "email": email,
-    });
+  Future savingUserData(String email, String fullname) async {
+    return await userCollection
+        .doc(uid)
+        .set({"email": email, "Name": fullname});
   }
 
   Future gettingUserdata(String email) async {

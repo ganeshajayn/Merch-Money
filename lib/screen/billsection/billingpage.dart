@@ -99,6 +99,7 @@ class _MyWidgetState extends State<Transactionscreen> {
         phonenumber: transaction.phonenumber ?? "",
         productname: transaction.productname,
         quantity: transaction.quantity,
+        category: transaction.category,
       ),
     ));
   }

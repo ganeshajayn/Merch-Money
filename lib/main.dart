@@ -6,6 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:merchmoney/models/cartmodel.dart';
 import 'package:merchmoney/models/categorypagemodel.dart';
 import 'package:merchmoney/models/itemmodel.dart';
+import 'package:merchmoney/models/profilescreen.dart';
 import 'package:merchmoney/models/transactionmodel.dart';
 
 import 'package:merchmoney/screen/innerscreen/splashscreen.dart';
@@ -18,7 +19,7 @@ void main() async {
   Hive.registerAdapter(ItempageAdapter());
   Hive.registerAdapter(CartmodelAdapter());
   Hive.registerAdapter(TransactionmodelAdapter());
-
+  Hive.registerAdapter(ProfilemodelAdapter());
   runApp(const MyApp());
 }
 

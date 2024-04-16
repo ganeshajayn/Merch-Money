@@ -23,15 +23,18 @@ class AuthService {
   Future registerUserWithEmailandPassword(
     String email,
     String password,
+    String fullname,
   ) async {
     try {
       User user = (await firebaseAuth.createUserWithEmailAndPassword(
-              email: email, password: password))
+        email: email,
+        password: password,
+      ))
           .user!;
 
       // ignore: unnecessary_null_comparison
       if (user != null) {
-        await DatabaseService(uid: user.uid).savingUserData(email);
+        await DatabaseService(uid: user.uid).savingUserData(email, fullname);
         return true;
       }
     } on FirebaseAuthException catch (e) {
@@ -43,6 +46,7 @@ class AuthService {
     try {
       await HelperFunctions.saveUserLoggedInStatus(false);
       await HelperFunctions.saveUserEmailSf("");
+      await HelperFunctions.saveUserNameSf("");
       await firebaseAuth.signOut();
     } catch (e) {
       return null;

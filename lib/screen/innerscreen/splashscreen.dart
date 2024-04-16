@@ -58,6 +58,10 @@ class _SplashScreenState extends State<SplashScreen> {
         splashIconSize: 500,
         duration: 5000,
         splashTransition: SplashTransition.sizeTransition,
-        nextScreen: _isSignedIn ? const Navbar() : const Introscreen());
+        nextScreen: _isSignedIn
+            ? const Navbar(
+                email: '',
+              )
+            : const Introscreen());
   }
 }

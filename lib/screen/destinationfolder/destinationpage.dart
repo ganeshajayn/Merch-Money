@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:merchmoney/models/cartmodel.dart';
 
 import 'package:merchmoney/models/categorypagemodel.dart';
@@ -193,7 +194,7 @@ class _DestinationpageState extends State<Destinationpage> {
                                                           '',
                                                       availablestock:
                                                           item.availablestock ??
-                                                              '',
+                                                              "",
                                                       totalstock:
                                                           item.totalstock ?? '',
                                                       currentrate:
@@ -366,14 +367,14 @@ class _DestinationpageState extends State<Destinationpage> {
 
                 if (quantity > 0 && quantity <= currentAvailableStock) {
                   int updatedAvailableStock = currentAvailableStock - quantity;
-                  // Ensure that available stock doesn't become negative
+
                   updatedAvailableStock =
                       updatedAvailableStock >= 0 ? updatedAvailableStock : 0;
                   setState(() {
                     item.availablestock = updatedAvailableStock.toString();
                   });
                   print('Item available stock: ${item.availablestock}');
-                  // Hive.box<Itempage>('itembox').putAt(index, item);
+                  Hive.box<Itempage>('itembox').put(itemKey, item);
 
                   // setState(() {
                   //   initalizeitemlist();

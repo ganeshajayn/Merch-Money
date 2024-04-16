@@ -261,6 +261,9 @@ class _CartscreenState extends State<Cartscreen> {
                         currentrate: cartlist
                             .map((cart) => cart.currentrate ?? "")
                             .toList(),
+                        categoryname: cartlist
+                            .map((cart) => cart.categorykey ?? "")
+                            .toList(),
                       ),
                     ).then((value) {
                       if (value == true) {

@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:merchmoney/models/profilescreen.dart';
+import 'package:merchmoney/screen/biladd/billadd.dart';
 import 'package:merchmoney/screen/homescreen/homescreen.dart';
+import 'package:merchmoney/screen/profilescreen/functions.dart';
 import 'package:merchmoney/widgets/textfield.dart';
 
 class IntroprofileScreen extends StatefulWidget {
@@ -30,7 +33,7 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
         elevation: 0,
         title: Text(
           "MERCH MONEY",
-          style: GoogleFonts.ubuntu(fontSize: 24, fontWeight: FontWeight.w500),
+          style: GoogleFonts.ubuntu(fontSize: 22, fontWeight: FontWeight.w500),
         ),
       ),
       backgroundColor: const Color(0xFF030655),
@@ -149,7 +152,9 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
                 child: TextButtonWidget(
               onpressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
+                  builder: (context) => const HomeScreen(
+                    email: '',
+                  ),
                 ));
               },
               textbutton: "Skip",

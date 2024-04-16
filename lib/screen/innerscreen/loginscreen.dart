@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String email = "";
   String password = "";
+  String username = "";
   bool isloading = false;
   AuthService authService = AuthService();
   @override
@@ -179,9 +180,12 @@ class _LoginScreenState extends State<LoginScreen> {
           //saving the values in sharedpreferences
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSf(email);
+          await HelperFunctions.saveUserNameSf(username);
           // ignore: use_build_context_synchronously
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const Navbar(),
+            builder: (context) => Navbar(
+              email: emailController.text,
+            ),
           ));
         } else {
           showSnackbar(context, Colors.red, value);

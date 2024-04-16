@@ -25,13 +25,14 @@ class TransactionmodelAdapter extends TypeAdapter<Transactionmodel> {
       productname: (fields[6] as List?)?.cast<String>(),
       currentrate: (fields[7] as List?)?.cast<String>(),
       quantity: (fields[5] as List?)?.cast<int>(),
+      category: (fields[8] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Transactionmodel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.totalprice)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class TransactionmodelAdapter extends TypeAdapter<Transactionmodel> {
       ..writeByte(6)
       ..write(obj.productname)
       ..writeByte(7)
-      ..write(obj.currentrate);
+      ..write(obj.currentrate)
+      ..writeByte(8)
+      ..write(obj.category);
   }
 
   @override

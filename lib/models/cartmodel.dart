@@ -22,15 +22,17 @@ class Cartmodel {
   String? currentrate;
   @HiveField(8)
   Itempage? item;
-  Cartmodel({
-    required this.quantity,
-    required this.cartkey,
-    required this.itemkey,
-    required this.productname,
-    required this.imagepath,
-    required this.categorykey,
-    required this.totalstock,
-    this.currentrate,
-    required this.item,
-  });
+  @HiveField(9)
+  String? categoryname;
+  Cartmodel(
+      {required this.quantity,
+      required this.cartkey,
+      required this.itemkey,
+      required this.productname,
+      required this.imagepath,
+      required this.categorykey,
+      required this.totalstock,
+      this.currentrate,
+      required this.item,
+      this.categoryname});
 }

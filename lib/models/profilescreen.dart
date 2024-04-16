@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'profilescreen.g.dart';
 
-@HiveType(typeId: 4)
+@HiveType(typeId: 5)
 class Profilemodel {
   @HiveField(0)
   String? imagepath;
@@ -12,9 +12,12 @@ class Profilemodel {
   @HiveField(3)
   String? shopname;
   @HiveField(4)
-  Profilemodel(
-      {required this.imagepath,
-      required this.phonenumber,
-      required this.shopname,
-      required this.username});
+  String? profilekey;
+  Profilemodel({
+    required this.imagepath,
+    required this.phonenumber,
+    required this.shopname,
+    required this.username,
+    required this.profilekey,
+  });
 }

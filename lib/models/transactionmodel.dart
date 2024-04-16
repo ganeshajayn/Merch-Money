@@ -19,6 +19,9 @@ class Transactionmodel {
   List<String>? productname;
   @HiveField(7)
   List<String>? currentrate;
+  @HiveField(8)
+  List<String>? category;
+
   Transactionmodel(
       {required this.totalprice,
       required this.dateTime,
@@ -27,5 +30,6 @@ class Transactionmodel {
       this.phonenumber,
       required this.productname,
       this.currentrate,
-      this.quantity});
+      this.quantity,
+      this.category});
 }

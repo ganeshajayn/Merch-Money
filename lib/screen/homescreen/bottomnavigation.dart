@@ -9,7 +9,9 @@ import 'package:merchmoney/screen/homescreen/homescreen.dart';
 import 'package:merchmoney/screen/homescreen/settingscren.dart';
 
 class Navbar extends StatefulWidget {
-  const Navbar({super.key});
+  const Navbar({super.key, required this.email});
+
+  final String email;
 
   @override
   State<Navbar> createState() => _NavbarState();
@@ -29,7 +31,9 @@ class _NavbarState extends State<Navbar> {
   void initState() {
     super.initState();
     pages = [
-      const HomeScreen(),
+      HomeScreen(
+        email: widget.email,
+      ),
       const CategoryScreen(),
       const Cartscreen(),
       const Settingscreen()

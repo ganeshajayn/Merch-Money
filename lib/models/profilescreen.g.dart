@@ -8,7 +8,7 @@ part of 'profilescreen.dart';
 
 class ProfilemodelAdapter extends TypeAdapter<Profilemodel> {
   @override
-  final int typeId = 4;
+  final int typeId = 5;
 
   @override
   Profilemodel read(BinaryReader reader) {
@@ -21,13 +21,14 @@ class ProfilemodelAdapter extends TypeAdapter<Profilemodel> {
       phonenumber: fields[2] as String?,
       shopname: fields[3] as String?,
       username: fields[1] as String?,
+      profilekey: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Profilemodel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.imagepath)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class ProfilemodelAdapter extends TypeAdapter<Profilemodel> {
       ..writeByte(2)
       ..write(obj.phonenumber)
       ..writeByte(3)
-      ..write(obj.shopname);
+      ..write(obj.shopname)
+      ..writeByte(4)
+      ..write(obj.profilekey);
   }
 
   @override

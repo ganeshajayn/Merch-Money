@@ -7,19 +7,20 @@ import 'package:merchmoney/screen/cartpage/functions.dart';
 import 'package:merchmoney/widgets/textfield.dart';
 
 class Billingaddscreen extends StatefulWidget {
-  const Billingaddscreen({
-    super.key,
-    required this.initializecart,
-    this.productsname,
-    this.quantities,
-    this.totalprice,
-    this.currentrate,
-  });
+  const Billingaddscreen(
+      {super.key,
+      required this.initializecart,
+      this.productsname,
+      this.quantities,
+      this.totalprice,
+      this.currentrate,
+      this.categoryname});
   final List<String>? currentrate;
   final List<String>? productsname;
   final List<int>? quantities;
   final double? totalprice;
   final dynamic initializecart;
+  final List<String>? categoryname;
   @override
   State<Billingaddscreen> createState() => _BillingaddscreenState();
 }
@@ -108,7 +109,8 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                   transactionkey: key,
                   productname: widget.productsname,
                   quantity: widget.quantities,
-                  currentrate: widget.currentrate);
+                  currentrate: widget.currentrate,
+                  category: widget.categoryname);
               addtransaction(key, value);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const Transactionscreen(),
