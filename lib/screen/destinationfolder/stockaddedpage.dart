@@ -13,10 +13,12 @@ class Stockaddedpage extends StatefulWidget {
     super.key,
     this.categoryOfIndex,
     required this.getItems,
+
     // required this.isbranded
   });
   final Categorypage? categoryOfIndex;
   final dynamic getItems;
+
   // final bool isbranded;
   @override
   State<Stockaddedpage> createState() => _StockaddedpageState();

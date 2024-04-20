@@ -22,6 +22,8 @@ class Transactionmodel {
   @HiveField(8)
   List<String>? category;
 
+  var date;
+
   Transactionmodel(
       {required this.totalprice,
       required this.dateTime,

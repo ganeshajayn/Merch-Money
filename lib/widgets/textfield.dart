@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget({
@@ -125,4 +126,27 @@ void showSnackbar(context, color, message) {
       textColor: Colors.white,
     ),
   ));
+}
+
+class Textwidget extends StatelessWidget {
+  const Textwidget({
+    super.key,
+    required this.title,
+    this.textColor,
+    this.textsize,
+  });
+  final String title;
+  final Color? textColor;
+  final double? textsize;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: GoogleFonts.poppins(
+        fontSize: textsize ?? 20,
+        fontWeight: FontWeight.w500,
+        color: textColor,
+      ),
+    );
+  }
 }

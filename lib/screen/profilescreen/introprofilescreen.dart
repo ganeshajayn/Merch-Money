@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:merchmoney/models/profilescreen.dart';
-import 'package:merchmoney/screen/biladd/billadd.dart';
-import 'package:merchmoney/screen/homescreen/homescreen.dart';
-import 'package:merchmoney/screen/profilescreen/functions.dart';
+import 'package:merchmoney/helper/helperfunctions.dart';
+import 'package:merchmoney/service/databaseservice.dart';
+
 import 'package:merchmoney/widgets/textfield.dart';
 
 class IntroprofileScreen extends StatefulWidget {
@@ -22,6 +23,44 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController shopnamecontroller = TextEditingController();
   TextEditingController phonenumber = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      // Get the current user's UID
+      String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+      if (uid != null) {
+        // Retrieve the user document snapshot from Firestore
+        DocumentSnapshot userSnapshot =
+            await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+        // Check if the user document exists
+        if (userSnapshot.exists) {
+          // Extract the 'Name' field from the document data
+          String? fullName = userSnapshot['Name'];
+
+          // Set the full name to the text controller
+          if (fullName != null) {
+            namecontroller.text = fullName;
+          }
+
+          // Update the UI
+          setState(() {});
+        } else {
+          print('User data not found for UID: $uid');
+        }
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenheight = MediaQuery.of(context).size.height;
@@ -148,18 +187,6 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
                       onpressed: () {},
                       buttontext: "CONFRIM")),
             ),
-            Align(
-                child: TextButtonWidget(
-              onpressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const HomeScreen(
-                    email: '',
-                  ),
-                ));
-              },
-              textbutton: "Skip",
-              textcolor: Colors.white,
-            ))
           ],
         ),
       ),

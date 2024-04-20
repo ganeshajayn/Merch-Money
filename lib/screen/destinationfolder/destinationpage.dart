@@ -270,6 +270,7 @@ class _DestinationpageState extends State<Destinationpage> {
           Navigator.of(context)
               .push(MaterialPageRoute(
             builder: (context) => Stockaddedpage(
+
                 // isbranded: wid,
                 categoryOfIndex: widget.categoryOfIndex,
                 getItems: initalizeitemlist()),
