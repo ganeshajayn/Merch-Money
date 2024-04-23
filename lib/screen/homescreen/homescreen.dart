@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:merchmoney/models/itemmodel.dart';
 import 'package:merchmoney/screen/homescreen/outofstock.dart';
-import 'package:merchmoney/service/authservice.dart';
+
 import 'package:merchmoney/widgets/pichart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -177,16 +177,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CarouselSlider(
                   items: [
                     Image.asset(
-                      "assets/images/business-chart_869423-670.jpg",
+                      "assets/images/Empower your bussiness with our app (1).jpg",
                       fit: BoxFit.cover,
                     ),
                     Image.asset(
-                      "assets/images/healthy-grocery-shopping_488220-32484.jpg",
+                      "assets/images/Add your cart.jpg",
                       fit: BoxFit.cover,
                     ),
                     Image.asset(
-                      "assets/images/businessman-holding-something-white-background.jpg",
-                      fit: BoxFit.fill,
+                      "assets/images/Add a subheading.jpg",
+                      fit: BoxFit.cover,
                     ),
                   ],
                   options: CarouselOptions(
@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(
                 "Revenue Section",
                 style: GoogleFonts.poppins(
-                    fontSize: 20,
+                    fontSize: 22,
                     fontWeight: FontWeight.w400,
                     color: Colors.white),
               ),
@@ -237,7 +237,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.12,
+              height: MediaQuery.sizeOf(context).height * 0.08,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 19),
+              child: Text(
+                "Daily collection",
+                style: GoogleFonts.poppins(fontSize: 22, color: Colors.white),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 25),

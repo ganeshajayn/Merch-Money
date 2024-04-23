@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:merchmoney/models/transactionmodel.dart';
+
 import 'package:merchmoney/screen/billsection/billingpage.dart';
 
 class Totalpricecontainer extends StatefulWidget {
@@ -16,7 +16,7 @@ class _TotalpricecontainerState extends State<Totalpricecontainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 360,
+      height: 150,
       width: 500,
       decoration: BoxDecoration(
         color: Colors.white70,
@@ -45,7 +45,8 @@ class _TotalpricecontainerState extends State<Totalpricecontainer> {
                 _selectedDate == null
                     ? 'Total Up to Today: ${calculateTotalUpToToday()}₹'
                     : 'Total for ${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}: ${calculateTotalForSelectedDate()}₹',
-                style: const TextStyle(fontSize: 18),
+                style: GoogleFonts.roboto(
+                    fontSize: 21, fontWeight: FontWeight.w500),
               ),
           ],
         ),

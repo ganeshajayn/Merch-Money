@@ -15,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Hive.initFlutter();
+
   Hive.registerAdapter(CategorypageAdapter());
   Hive.registerAdapter(ItempageAdapter());
   Hive.registerAdapter(CartmodelAdapter());

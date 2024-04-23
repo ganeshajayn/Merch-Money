@@ -32,8 +32,17 @@ class _SearchhedResultsState extends State<SearchhedResults> {
         title: TextField(
           controller: searchController,
           decoration: InputDecoration(
+            filled: false, // Set filled to false to use outline border
             hintText: 'Search',
-            fillColor: Colors.white,
+            hintStyle: const TextStyle(color: Colors.white), // Hint text color
+            border: UnderlineInputBorder(
+              borderRadius:
+                  BorderRadius.circular(8.0), // Adjust border radius as needed
+              borderSide: const BorderSide(
+                color: Colors.white, // Outline border color
+                width: 2.0, // Outline border width
+              ),
+            ),
             suffixIcon: IconButton(
               icon: const Icon(
                 Icons.search,
@@ -43,10 +52,13 @@ class _SearchhedResultsState extends State<SearchhedResults> {
                 searchItems(searchController.text);
               },
             ),
+
+            fillColor: Colors.white.withOpacity(0.3),
           ),
           onChanged: (value) {
             searchItems(value);
           },
+          style: const TextStyle(color: Colors.white), // Text color
         ),
       ),
       body: list.isNotEmpty

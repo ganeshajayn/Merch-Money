@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:merchmoney/models/itemmodel.dart';
 import 'package:merchmoney/screen/destinationfolder/functions.dart';
-import 'package:merchmoney/screen/homescreen/homescreen.dart';
+
 import 'package:merchmoney/widgets/textfield.dart';
 
 class UpdateItemScreen extends StatefulWidget {

@@ -61,12 +61,22 @@ class _DestinationpageState extends State<Destinationpage> {
                   width: 0.5,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 30, left: 20),
-                    child: Text(
-                      widget.categoryOfIndex?.categoryname ?? '',
-                      style: GoogleFonts.poppins(
-                        fontSize: 29,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Row(
+                      children: [
+                        Text(
+                          widget.categoryOfIndex?.categoryname ?? '',
+                          style: GoogleFonts.poppins(
+                            fontSize: 29,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            showsortoptions(context);
+                          },
+                          icon: const Icon(Icons.sort),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -294,6 +304,43 @@ class _DestinationpageState extends State<Destinationpage> {
     );
   }
 
+  void showsortoptions(BuildContext context) {
+    showMenu<String>(
+        context: context,
+        position: const RelativeRect.fromLTRB(10, 20, 0, 25),
+        items: [
+          const PopupMenuItem<String>(
+            value: 'brand',
+            child: Text("Sort by brand name"),
+          ),
+          const PopupMenuItem<String>(
+            value: "rate",
+            child: Text("Sort by current rate"),
+          )
+        ]).then((selectedvalue) {
+      if (selectedvalue != null) {
+        if (selectedvalue == 'brand') {
+          sortItemsbybrand();
+        } else if (selectedvalue == "rate") {
+          sortitemsbyrate();
+        }
+      }
+    });
+  }
+
+  void sortItemsbybrand() {
+    itemlist.sort(
+      (a, b) => (a.brandname ?? '').compareTo(b.brandname ?? ""),
+    );
+    setState(() {});
+  }
+
+  void sortitemsbyrate() {
+    itemlist.sort(
+      (a, b) => (a.currentrate ?? "").compareTo(b.currentrate ?? ""),
+    );
+  }
+
 // Function to show delete confirmation dialog
   void showDeleteConfirmationDialog(
       BuildContext context, Itempage item, String key) {
@@ -400,13 +447,13 @@ class _DestinationpageState extends State<Destinationpage> {
                   getcart();
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: const Text("Added to Cart")),
+                    const SnackBar(content: Text("Added to Cart")),
                   );
 
                   Navigator.pop(context); // Pop the current screen
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: const Text('Invalid Quantity')),
+                    const SnackBar(content: Text('Invalid Quantity')),
                   );
                 }
               },

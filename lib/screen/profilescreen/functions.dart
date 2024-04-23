@@ -1,14 +1,16 @@
 import 'package:hive/hive.dart';
 import 'package:merchmoney/models/profilescreen.dart';
 
-Future<List> getprofiles() async {
-  final profilebox = await Hive.openBox<Profilemodel>("profilebox");
-  return profilebox.values.toList();
+Future<Profilemodel?> getprofile() async {
+  final profilebox = await Hive.openBox<Profilemodel>('profilebox');
+  final value = profilebox.get(0);
+  print("successfully gotten the data");
+  return value;
 }
 
-Future<void> addprofile(String key, Profilemodel value) async {
-  final profilebox = await Hive.openBox<Profilemodel>("profilebox");
-  final key = DateTime.now().microsecondsSinceEpoch.toString();
-  value.profilekey = key;
-  profilebox.put(key, value);
+Future<void> addprofile(Profilemodel value, String key) async {
+  final profilebox = await Hive.openBox<Profilemodel>('profilebox');
+  // profilebox.put(key, value);
+  profilebox.put(0, value);
+  print("successfully added");
 }

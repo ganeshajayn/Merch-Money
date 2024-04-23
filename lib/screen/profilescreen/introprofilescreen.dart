@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:merchmoney/helper/helperfunctions.dart';
-import 'package:merchmoney/service/databaseservice.dart';
+import 'package:merchmoney/models/profilescreen.dart';
+
+import 'package:merchmoney/screen/profilescreen/functions.dart';
 
 import 'package:merchmoney/widgets/textfield.dart';
 
@@ -23,10 +25,10 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController shopnamecontroller = TextEditingController();
   TextEditingController phonenumber = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-
     fetchUserData();
   }
 
@@ -40,17 +42,13 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
         DocumentSnapshot userSnapshot =
             await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-        // Check if the user document exists
         if (userSnapshot.exists) {
-          // Extract the 'Name' field from the document data
           String? fullName = userSnapshot['Name'];
 
-          // Set the full name to the text controller
           if (fullName != null) {
             namecontroller.text = fullName;
           }
 
-          // Update the UI
           setState(() {});
         } else {
           print('User data not found for UID: $uid');
@@ -74,6 +72,7 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
           "MERCH MONEY",
           style: GoogleFonts.ubuntu(fontSize: 22, fontWeight: FontWeight.w500),
         ),
+        automaticallyImplyLeading: false,
       ),
       backgroundColor: const Color(0xFF030655),
       body: SingleChildScrollView(
@@ -164,7 +163,7 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
               ),
             ),
             TextFormFieldWidget(
-              controller: shopnamecontroller,
+              controller: phonenumber,
               fillcolourvalue: true,
               fillColor: Colors.white,
               keyboardType: TextInputType.number,
@@ -184,7 +183,19 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
                           borderRadius: BorderRadius.circular(25)),
                       textcolor: const Color(0xFF030655),
                       backgroundcolor: Colors.white,
-                      onpressed: () {},
+                      onpressed: () {
+                        String key = "1";
+
+                        final value = Profilemodel(
+                            imagepath: selectedImage!.path,
+                            phonenumber: phonenumber.text,
+                            shopname: shopnamecontroller.text,
+                            profilekey: key);
+                        addprofile(value, key);
+                        print("$value");
+                        updateuserdata();
+                        Navigator.of(context).pop();
+                      },
                       buttontext: "CONFRIM")),
             ),
           ],
@@ -273,5 +284,14 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
     });
     // ignore: use_build_context_synchronously
     Navigator.of(context).pop();
+  }
+
+  void updateuserdata() async {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'Name': namecontroller.text.trim(),
+      });
+    }
   }
 }

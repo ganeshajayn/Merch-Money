@@ -6,7 +6,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:merchmoney/screen/cartpage/cartscreen.dart';
 import 'package:merchmoney/screen/categoryscreen/categorypage.dart';
 import 'package:merchmoney/screen/homescreen/homescreen.dart';
-import 'package:merchmoney/screen/profilescreen/introprofilescreen.dart';
+
 import 'package:merchmoney/screen/settingscreen/settingscreen.dart';
 
 class Navbar extends StatefulWidget {

@@ -80,7 +80,7 @@ class _MyPieChartState extends State<MyPieChart> {
   }
 
   Widget _buildPieChart(Map<String, double> categorySales) {
-    double desiredRadius = 70.0;
+    double desiredRadius = 80.0;
 
     List<PieChartSectionData> pieChartData = [];
     List<Color> colorPalette = _generateColorPalette(categorySales.length);
@@ -97,7 +97,7 @@ class _MyPieChartState extends State<MyPieChart> {
         PieChartSectionData(
           value: sales,
           color: categoryColor,
-          title: '\$${sales.toStringAsFixed(2)}', // Display sales as title
+          title: '\$$totalSales.toStringAsFixed(2)}', // Display sales as title
           titleStyle: const TextStyle(
             fontSize: 0, // Hide the default title
             fontWeight: FontWeight.bold,
@@ -123,13 +123,13 @@ class _MyPieChartState extends State<MyPieChart> {
                   sectionsSpace: 0,
                   centerSpaceRadius: desiredRadius,
                 ),
-                swapAnimationDuration: const Duration(milliseconds: 750),
+                swapAnimationDuration: const Duration(milliseconds: 950),
                 swapAnimationCurve: Curves.easeInOutQuint,
               ),
             ),
             // Display total sales value at the center
             Text(
-              '\$$totalSales',
+              '₹$totalSales',
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

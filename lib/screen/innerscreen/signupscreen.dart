@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:merchmoney/helper/helperfunctions.dart';
 import 'package:merchmoney/screen/homescreen/bottomnavigation.dart';
-import 'package:merchmoney/screen/homescreen/homescreen.dart';
 
-import 'package:merchmoney/screen/profilescreen/introprofilescreen.dart';
 import 'package:merchmoney/screen/innerscreen/loginscreen.dart';
 
 import 'package:merchmoney/service/authservice.dart';
