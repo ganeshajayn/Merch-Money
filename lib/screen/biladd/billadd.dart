@@ -87,6 +87,7 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                 ));
                 clearBox();
                 widget.initializecart;
+                setState(() {});
               }
             },
             buttontext: "Save"),
@@ -117,6 +118,7 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
               ));
               clearBox();
               widget.initializecart;
+              setState(() {});
             },
             textbutton: "Skip & Continue")
       ],

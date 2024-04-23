@@ -76,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(top: 40, left: 20),
               child: Text(
                 "${getGreeting()} $username,",
-                style: GoogleFonts.roboto(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
               ),
@@ -224,11 +224,11 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Container(
-                height: 360,
+                height: 460,
                 width: 500,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.white70,
+                  color: Colors.white,
                 ),
                 child: const Padding(
                   padding: EdgeInsets.only(right: 90),

@@ -19,7 +19,7 @@ class _TotalpricecontainerState extends State<Totalpricecontainer> {
       height: 150,
       width: 500,
       decoration: BoxDecoration(
-        color: Colors.white70,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Center(

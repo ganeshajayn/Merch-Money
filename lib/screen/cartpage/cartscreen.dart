@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -143,52 +145,56 @@ class _CartscreenState extends State<Cartscreen> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
-                                        child: Container(
-                                          height: 100,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              image: DecorationImage(
-                                                  image: FileImage(File(
-                                                      cart.imagepath ?? '')),
-                                                  fit: BoxFit.cover)),
+                                        child: Expanded(
+                                          child: Container(
+                                            height: 100,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                image: DecorationImage(
+                                                    image: FileImage(File(
+                                                        cart.imagepath ?? '')),
+                                                    fit: BoxFit.cover)),
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(
                                         width: 20,
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Name:${cart.productname}',
-                                            style: GoogleFonts.openSans(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          Text(
-                                            'Add quanity :${cart.quantity}',
-                                            style: GoogleFonts.openSans(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          Text(
-                                            "Category : ${cart.categorykey} ",
-                                            style: GoogleFonts.openSans(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          Text(
-                                            "Currentrate : ${cart.currentrate}",
-                                            style: GoogleFonts.openSans(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600),
-                                          )
-                                        ],
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Name:${cart.productname}',
+                                              style: GoogleFonts.openSans(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(
+                                              'Add quanity :${cart.quantity}',
+                                              style: GoogleFonts.openSans(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(
+                                              "Currentrate : ${cart.currentrate}",
+                                              style: GoogleFonts.openSans(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(
+                                              "Category : ${cart.categorykey} ",
+                                              style: GoogleFonts.openSans(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       const SizedBox(
                                         width: 18,
@@ -271,7 +277,7 @@ class _CartscreenState extends State<Cartscreen> {
                       }
                     });
 
-                    print('produtname :${cartlist}');
+                    //  print('produtname :${cartlist}');
                   },
                   child: const Text("Checkout"),
                 ),

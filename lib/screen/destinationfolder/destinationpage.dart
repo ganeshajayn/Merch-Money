@@ -392,9 +392,13 @@ class _DestinationpageState extends State<Destinationpage> {
       builder: (context) => AlertDialog(
           title: const Text("Add Item to Cart"),
           content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Enter the Quantity for $productName'),
+              Text(
+                'Enter the Quantity for $productName',
+                style: GoogleFonts.roboto(fontWeight: FontWeight.w500),
+              ),
               TextFormFieldWidget(
                 controller: quantitycontroller,
                 keyboardType: TextInputType.number,
@@ -447,13 +451,25 @@ class _DestinationpageState extends State<Destinationpage> {
                   getcart();
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Added to Cart")),
+                    SnackBar(
+                      content: Text(
+                        "Added to Cart",
+                        style: GoogleFonts.roboto(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.green,
+                    ),
                   );
 
                   Navigator.pop(context); // Pop the current screen
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Invalid Quantity')),
+                    SnackBar(
+                      content: Text(
+                        'Invalid Quantity',
+                        style: GoogleFonts.roboto(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.red,
+                    ),
                   );
                 }
               },

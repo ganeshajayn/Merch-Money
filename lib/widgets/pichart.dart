@@ -97,7 +97,7 @@ class _MyPieChartState extends State<MyPieChart> {
         PieChartSectionData(
           value: sales,
           color: categoryColor,
-          title: '\$$totalSales.toStringAsFixed(2)}', // Display sales as title
+          title: '\$${sales.toStringAsFixed(2)}', // Display sales as title
           titleStyle: const TextStyle(
             fontSize: 0, // Hide the default title
             fontWeight: FontWeight.bold,

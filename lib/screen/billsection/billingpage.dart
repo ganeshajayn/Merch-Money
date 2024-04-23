@@ -42,7 +42,10 @@ class _MyWidgetState extends State<Transactionscreen> {
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: const Color(0xFF030655),
-          title: const Text("Transactions"),
+          title: Text(
+            "Transactions History",
+            style: GoogleFonts.roboto(fontSize: 20),
+          ),
         ),
         body: ListView.builder(
           itemBuilder: (context, index) {
@@ -70,15 +73,27 @@ class _MyWidgetState extends State<Transactionscreen> {
                   child: ListTile(
                       title: Text(
                         "Name :${transaction.username}",
-                        style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                        style: GoogleFonts.roboto(
+                            fontSize: 23, fontWeight: FontWeight.w500),
                       ),
                       subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Phone Number: ${transaction.phonenumber}'),
-                            Text('Total Price: ${transaction.totalprice}₹'),
-                            Text('Date: $formatteddate'),
+                            Text(
+                              'Phone Number: ${transaction.phonenumber}',
+                              style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              'Total Price: ${transaction.totalprice}₹',
+                              style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              'Date: $formatteddate',
+                              style: GoogleFonts.roboto(
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ]))),
             );
           },
