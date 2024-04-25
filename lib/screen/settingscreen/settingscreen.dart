@@ -8,6 +8,8 @@ import 'package:merchmoney/models/profilescreen.dart';
 import 'package:merchmoney/screen/innerscreen/onboardingscreeen.dart';
 import 'package:merchmoney/screen/profilescreen/functions.dart';
 import 'package:merchmoney/screen/profilescreen/introprofilescreen.dart';
+import 'package:merchmoney/widgets/textfield.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Settingscreen extends StatefulWidget {
   const Settingscreen({Key? key}) : super(key: key);
@@ -49,15 +51,22 @@ class _SettingscreenState extends State<Settingscreen> {
         image = data.imagepath ?? "demo";
         shopename = data.shopname ?? "demoo";
       });
-      print("Shop Name: $shopename");
+      // print("Shop Name: $shopename");
       print("Image Path: $image");
     }
+  }
+
+  Future<void> _refreshScreen() async {
+    // Reload user data and profile data
+    await fetchUserData();
+    await fetchProfileData();
+    // Trigger a screen refresh
+    setState(() {});
   }
 
   Future<void> _logout() async {
     try {
       await FirebaseAuth.instance.signOut();
-      // Navigate to login screen or perform any post-logout actions
     } catch (e) {
       print("Error logging out: $e");
       // Handle error, if any
@@ -82,7 +91,7 @@ class _SettingscreenState extends State<Settingscreen> {
               onPressed: () {
                 _logout();
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Introscreen(),
+                  builder: (context) => const Introscreen(),
                 ));
               },
               child: Text("Logout"),
@@ -166,6 +175,16 @@ class _SettingscreenState extends State<Settingscreen> {
                             color: Colors.black,
                           ),
                         ),
+                        Positioned(
+                            top: 10,
+                            left: 20,
+                            child: IconButton(
+                                onPressed: () {
+                                  _refreshScreen();
+                                },
+                                icon: const Icon(
+                                  Icons.refresh,
+                                ))),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -176,10 +195,10 @@ class _SettingscreenState extends State<Settingscreen> {
                                 backgroundImage: image.isNotEmpty
                                     ? FileImage(File(image))
                                     : null,
+                                radius: 60,
                                 child: image.isEmpty
                                     ? const Icon(Icons.person)
                                     : null,
-                                radius: 60,
                               ),
                             ),
                             const SizedBox(height: 30),
@@ -213,78 +232,36 @@ class _SettingscreenState extends State<Settingscreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      // Handle About Us button press
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.person,
-                            color: Color(0xFF030655),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "About Us",
-                            style: TextStyle(
-                              color: Color(0xFF030655),
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Handle Privacy & Policy button press
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.note,
-                            color: Color(0xFF030655),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "Privacy & Policy",
-                            style: TextStyle(
-                              color: Color(0xFF030655),
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      _confirmLogout(context); // Show confirmation dialog
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.logout,
-                            color: Color(0xFF030655),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "Logout",
-                            style: TextStyle(
-                              color: Color(0xFF030655),
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  WidgetListTile(
+                      tileColor: Color(0xFF030655),
+                      leaddingtileIcon: Icons.person,
+                      titleText: "About Us ",
+                      onTapAction: () {
+                        showAboutDialog(
+                          context: context,
+                          applicationName: 'MerchMoney',
+                        );
+                      }),
+                  WidgetListTile(
+                      tileColor: Color(0xFF030655),
+                      leaddingtileIcon: Icons.privacy_tip_sharp,
+                      titleText: "Privacy&policy",
+                      onTapAction: () {
+                        launchUrl(Uri.parse(
+                            "https://www.freeprivacypolicy.com/live/34d0e172-7976-407c-878e-81ba571d4587"));
+                      }),
+                  WidgetListTile(
+                      tileColor: Color(0xFF030655),
+                      leaddingtileIcon: Icons.person,
+                      titleText: "Terms & conditions ",
+                      onTapAction: () {}),
+                  WidgetListTile(
+                      tileColor: Color(0xFF030655),
+                      leaddingtileIcon: Icons.logout_outlined,
+                      titleText: "Logout",
+                      onTapAction: () {
+                        _confirmLogout(context);
+                      }),
                 ],
               ),
             ),

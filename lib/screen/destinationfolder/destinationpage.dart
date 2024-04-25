@@ -399,6 +399,17 @@ class _DestinationpageState extends State<Destinationpage> {
                 'Enter the Quantity for $productName',
                 style: GoogleFonts.roboto(fontWeight: FontWeight.w500),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Available Stock is $availablestock',
+                style: GoogleFonts.roboto(
+                    fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               TextFormFieldWidget(
                 controller: quantitycontroller,
                 keyboardType: TextInputType.number,

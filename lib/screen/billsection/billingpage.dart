@@ -37,68 +37,70 @@ class _MyWidgetState extends State<Transactionscreen> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: const Color(0xFF030655),
-          title: Text(
-            "Transactions History",
-            style: GoogleFonts.roboto(fontSize: 20),
-          ),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: const Color(0xFF030655),
+        title: Text(
+          "Transactions History",
+          style: GoogleFonts.roboto(fontSize: 20),
         ),
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            final transaction = transactionHistory[index];
+      ),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          final transaction = transactionHistory[index];
 
-            return GestureDetector(
-              onTap: () {
-                showbilldetails(transaction);
-              },
-              child: Slidable(
-                  key: ValueKey(index),
-                  startActionPane: ActionPane(
-                      motion: const ScrollMotion(),
-                      dismissible: DismissiblePane(onDismissed: () {}),
-                      children: [
-                        SlidableAction(
-                          onPressed: (context) {
-                            deletefunction(transaction.transactionkey ?? '');
-                          },
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          icon: Icons.delete,
-                        ),
-                      ]),
-                  child: ListTile(
-                      title: Text(
-                        "Name :${transaction.username}",
-                        style: GoogleFonts.roboto(
-                            fontSize: 23, fontWeight: FontWeight.w500),
+          return GestureDetector(
+            onTap: () {
+              showbilldetails(transaction);
+            },
+            child: Card(
+              elevation: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Name: ${transaction.username}",
+                      style: GoogleFonts.roboto(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
                       ),
-                      subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Phone Number: ${transaction.phonenumber}',
-                              style: GoogleFonts.roboto(
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              'Total Price: ${transaction.totalprice}₹',
-                              style: GoogleFonts.roboto(
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              'Date: $formatteddate',
-                              style: GoogleFonts.roboto(
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ]))),
-            );
-          },
-          itemCount: transactionHistory.length,
-        ));
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Phone Number: ${transaction.phonenumber}',
+                      style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Total Price: ${transaction.totalprice}₹',
+                      style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Date: $formatteddate',
+                      style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        itemCount: transactionHistory.length,
+      ),
+    );
   }
 
   void deletefunction(String transactionkey) async {

@@ -276,6 +276,7 @@ class _CartscreenState extends State<Cartscreen> {
                         initalisecart();
                       }
                     });
+                    clearBox();
 
                     //  print('produtname :${cartlist}');
                   },

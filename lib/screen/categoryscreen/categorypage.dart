@@ -93,7 +93,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               SafeArea(
                 child: Container(
                     decoration: const BoxDecoration(color: Colors.white),
-                    height: height * 0.19,
+                    height: height * 0.16,
                     width: width,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20, top: 0.1),

@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
           String? username = snapshot.data!["Name"];
           if (username != null) {
             return Padding(
-              padding: const EdgeInsets.only(top: 40, left: 20),
+              padding: const EdgeInsets.only(top: 60, left: 20),
               child: Text(
                 "${getGreeting()} $username,",
                 style: GoogleFonts.poppins(

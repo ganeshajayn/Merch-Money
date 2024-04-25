@@ -19,7 +19,7 @@ class Billingaddscreen extends StatefulWidget {
   final List<String>? productsname;
   final List<int>? quantities;
   final double? totalprice;
-  final dynamic initializecart;
+  final Future? initializecart;
   final List<String>? categoryname;
   @override
   State<Billingaddscreen> createState() => _BillingaddscreenState();
@@ -82,12 +82,10 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                     quantity: widget.quantities,
                     currentrate: widget.currentrate);
                 addtransaction(key, value);
+                Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const Transactionscreen(),
                 ));
-                clearBox();
-                widget.initializecart;
-                setState(() {});
               }
             },
             buttontext: "Save"),
@@ -113,14 +111,12 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                   currentrate: widget.currentrate,
                   category: widget.categoryname);
               addtransaction(key, value);
+              Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const Transactionscreen(),
               ));
-              clearBox();
-              widget.initializecart;
-              setState(() {});
             },
-            textbutton: "Skip & Continue")
+            textbutton: "Skip & Continue"),
       ],
     );
   }

@@ -150,3 +150,47 @@ class Textwidget extends StatelessWidget {
     );
   }
 }
+
+class WidgetListTile extends StatelessWidget {
+  final String titleText;
+  final IconData leaddingtileIcon;
+  final IconData? trilingtileIcon;
+  final Color tileColor;
+  final VoidCallback onTapAction;
+
+  const WidgetListTile({
+    required this.tileColor,
+    required this.leaddingtileIcon,
+    this.trilingtileIcon,
+    required this.titleText,
+    required this.onTapAction,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(
+          leaddingtileIcon,
+          color: tileColor,
+          size: 25,
+        ),
+      ),
+      trailing: trilingtileIcon != null
+          ? Icon(
+              trilingtileIcon,
+              color: tileColor,
+              size: 40,
+            )
+          : null,
+      title: Text(
+        titleText,
+        style: GoogleFonts.getFont('Ubuntu',
+            color: tileColor, fontSize: 18, fontWeight: FontWeight.w500),
+      ),
+      onTap: onTapAction,
+    );
+  }
+}

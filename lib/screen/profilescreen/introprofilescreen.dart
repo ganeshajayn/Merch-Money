@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:merchmoney/models/profilescreen.dart';
 
@@ -30,6 +30,7 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
   void initState() {
     super.initState();
     fetchUserData();
+    setState(() {});
   }
 
   Future<void> fetchUserData() async {
@@ -192,9 +193,11 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
                             shopname: shopnamecontroller.text,
                             profilekey: key);
                         addprofile(value, key);
-                        print("$value");
+                        setState(() {});
+                        // print("$value");
                         updateuserdata();
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(true);
+                        setState(() {});
                       },
                       buttontext: "CONFRIM")),
             ),
