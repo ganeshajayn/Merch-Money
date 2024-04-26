@@ -166,31 +166,30 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 60,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(14.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.white,
                 ),
-                height: 200,
-                width: 400,
+                height: MediaQuery.of(context).size.width * (9 / 16),
+                width: MediaQuery.of(context).size.width,
                 child: CarouselSlider(
                   items: [
-                    Image.asset(
-                      "assets/images/Empower your bussiness with our app (1).jpg",
-                      fit: BoxFit.cover,
-                    ),
-                    Image.asset(
-                      "assets/images/Add your cart.jpg",
-                      fit: BoxFit.cover,
-                    ),
-                    Image.asset(
-                      "assets/images/Add a subheading.jpg",
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+                    "assets/images/Add a heading.jpg",
+                    "assets/images/ADD.jpg",
+                    "assets/images/Empower.jpg",
+                  ].map((imagePath) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset(
+                        imagePath,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  }).toList(),
                   options: CarouselOptions(
-                    height: 200.0,
+                    height: MediaQuery.of(context).size.width * (9 / 16),
                     aspectRatio: 16 / 9,
                     viewportFraction: 1,
                     initialPage: 0,

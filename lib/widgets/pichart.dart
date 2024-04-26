@@ -25,9 +25,15 @@ class _MyPieChartState extends State<MyPieChart> {
           return Center(
               child: Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: Text(
-              'No transactions found.',
-              style: GoogleFonts.poppins(fontSize: 22),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'No transactions found.',
+                  style: GoogleFonts.poppins(fontSize: 22),
+                ),
+              ],
             ),
           ));
         }

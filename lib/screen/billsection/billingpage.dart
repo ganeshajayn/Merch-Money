@@ -48,58 +48,66 @@ class _MyWidgetState extends State<Transactionscreen> {
           style: GoogleFonts.roboto(fontSize: 20),
         ),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          final transaction = transactionHistory[index];
+      body: transactionHistory.isEmpty
+          ? Center(
+              child: Text(
+              "No Transaction Here",
+              style:
+                  GoogleFonts.roboto(fontSize: 18, fontWeight: FontWeight.w500),
+            ))
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                final transaction = transactionHistory[index];
 
-          return GestureDetector(
-            onTap: () {
-              showbilldetails(transaction);
-            },
-            child: Card(
-              elevation: 8,
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Name: ${transaction.username}",
-                      style: GoogleFonts.roboto(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                return GestureDetector(
+                  onTap: () {
+                    showbilldetails(transaction);
+                  },
+                  child: Card(
+                    elevation: 8,
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Name: ${transaction.username}",
+                            style: GoogleFonts.roboto(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Phone Number: ${transaction.phonenumber}',
+                            style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Total Price: ${transaction.totalprice}₹',
+                            style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Date: $formatteddate',
+                            style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Phone Number: ${transaction.phonenumber}',
-                      style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Total Price: ${transaction.totalprice}₹',
-                      style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Date: $formatteddate',
-                      style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
+              itemCount: transactionHistory.length,
             ),
-          );
-        },
-        itemCount: transactionHistory.length,
-      ),
     );
   }
 
