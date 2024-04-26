@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:merchmoney/models/transactionmodel.dart';
 import 'package:merchmoney/screen/billsection/billingpage.dart';
 import 'package:merchmoney/screen/billsection/funcions.dart';
-import 'package:merchmoney/screen/cartpage/functions.dart';
 
 import 'package:merchmoney/widgets/textfield.dart';
 
