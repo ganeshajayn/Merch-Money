@@ -25,7 +25,8 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
   TextEditingController namecontroller = TextEditingController();
   TextEditingController shopnamecontroller = TextEditingController();
   TextEditingController phonenumber = TextEditingController();
-
+  final formkey = GlobalKey<FormState>();
+  final messengerkey = GlobalKey<ScaffoldMessengerState>();
   @override
   void initState() {
     super.initState();
@@ -77,131 +78,155 @@ class _IntroprofileScreenState extends State<IntroprofileScreen> {
       ),
       backgroundColor: const Color(0xFF030655),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.white,
-                      backgroundImage: image != null ? FileImage(image!) : null,
-                      child: image == null ? const Icon(Icons.person) : null,
-                    ),
-                    Positioned(
-                      right: 22,
-                      bottom: 8,
-                      child: InkWell(
-                          onTap: () {
-                            shomimageOption(
-                              context,
-                            );
-                          },
-                          child: const CircleAvatar(
-                            backgroundColor: Color(0xFF030655),
-                            child: Icon(
-                              Icons.add_a_photo_outlined,
-                              color: Colors.white,
-                            ),
-                          )),
-                    )
-                  ],
+        child: Form(
+          key: formkey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 70,
+                        backgroundColor: Colors.white,
+                        backgroundImage:
+                            image != null ? FileImage(image!) : null,
+                        child: image == null ? const Icon(Icons.person) : null,
+                      ),
+                      Positioned(
+                        right: 22,
+                        bottom: 8,
+                        child: InkWell(
+                            onTap: () {
+                              shomimageOption(
+                                context,
+                              );
+                            },
+                            child: const CircleAvatar(
+                              backgroundColor: Color(0xFF030655),
+                              child: Icon(
+                                Icons.add_a_photo_outlined,
+                                color: Colors.white,
+                              ),
+                            )),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 60,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Text(
-                "Full Name",
-                style: GoogleFonts.ubuntu(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500),
+              const SizedBox(
+                height: 60,
               ),
-            ),
-            TextFormFieldWidget(
-              controller: namecontroller,
-              fillcolourvalue: true,
-              fillColor: Colors.white,
-              keyboardType: TextInputType.text,
-              prefixIcon: const Icon(Icons.person_2_outlined),
-              hintText: "Enter your name",
-              labeltext: "username",
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, top: 25),
-              child: Text(
-                "Shope Name",
-                style: GoogleFonts.ubuntu(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500),
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Text(
+                  "Full Name",
+                  style: GoogleFonts.ubuntu(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500),
+                ),
               ),
-            ),
-            TextFormFieldWidget(
-              controller: shopnamecontroller,
-              fillcolourvalue: true,
-              fillColor: Colors.white,
-              keyboardType: TextInputType.text,
-              prefixIcon: const Icon(Icons.shop_two_rounded),
-              hintText: "Enter your Shopename",
-              labeltext: "shopename",
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, top: 25),
-              child: Text(
-                "Phone Number",
-                style: GoogleFonts.ubuntu(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500),
+              TextFormFieldWidget(
+                controller: namecontroller,
+                fillcolourvalue: true,
+                fillColor: Colors.white,
+                keyboardType: TextInputType.text,
+                prefixIcon: const Icon(Icons.person_2_outlined),
+                hintText: "Enter your name",
+                labeltext: "username",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "please enter the name";
+                  }
+                  return null;
+                },
               ),
-            ),
-            TextFormFieldWidget(
-              controller: phonenumber,
-              fillcolourvalue: true,
-              fillColor: Colors.white,
-              keyboardType: TextInputType.number,
-              prefixIcon: const Icon(Icons.phone_android_outlined),
-              hintText: "Enter your PhoneNumber",
-              labeltext: "Phone Number",
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Align(
-              child: SizedBox(
-                  width: screenwidth * 0.9,
-                  height: screenheight * 0.06,
-                  child: ElevatedButtonnWidget(
-                      customshape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      textcolor: const Color(0xFF030655),
-                      backgroundcolor: Colors.white,
-                      onpressed: () {
-                        String key = "1";
+              Padding(
+                padding: const EdgeInsets.only(left: 16, top: 25),
+                child: Text(
+                  "Shope Name",
+                  style: GoogleFonts.ubuntu(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              TextFormFieldWidget(
+                controller: shopnamecontroller,
+                fillcolourvalue: true,
+                fillColor: Colors.white,
+                keyboardType: TextInputType.text,
+                prefixIcon: const Icon(Icons.shop_two_rounded),
+                hintText: "Enter your Shopename",
+                labeltext: "shopename",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "please enter the shopname";
+                  }
+                  return null;
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16, top: 25),
+                child: Text(
+                  "Phone Number",
+                  style: GoogleFonts.ubuntu(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              TextFormFieldWidget(
+                controller: phonenumber,
+                fillcolourvalue: true,
+                fillColor: Colors.white,
+                keyboardType: TextInputType.number,
+                prefixIcon: const Icon(Icons.phone_android_outlined),
+                hintText: "Enter your PhoneNumber",
+                labeltext: "Phone Number",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "please Enter the valid phonenumber";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Align(
+                child: SizedBox(
+                    width: screenwidth * 0.9,
+                    height: screenheight * 0.06,
+                    child: ElevatedButtonnWidget(
+                        customshape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                        textcolor: const Color(0xFF030655),
+                        backgroundcolor: Colors.white,
+                        onpressed: () {
+                          if (formkey.currentState!.validate()) {
+                            String key = "1";
 
-                        final value = Profilemodel(
-                            imagepath: selectedImage!.path,
-                            phonenumber: phonenumber.text,
-                            shopname: shopnamecontroller.text,
-                            profilekey: key);
-                        addprofile(value, key);
-                        setState(() {});
-                        // print("$value");
-                        updateuserdata();
-                        Navigator.of(context).pop(true);
-                        setState(() {});
-                      },
-                      buttontext: "CONFRIM")),
-            ),
-          ],
+                            final value = Profilemodel(
+                                imagepath: selectedImage!.path,
+                                phonenumber: phonenumber.text,
+                                shopname: shopnamecontroller.text,
+                                profilekey: key);
+                            addprofile(value, key);
+                            setState(() {});
+                            // print("$value");
+                            updateuserdata();
+                            Navigator.of(context).pop(true);
+                            setState(() {});
+                          }
+                        },
+                        buttontext: "CONFRIM")),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -266,6 +266,7 @@ void checkLowStockItems(BuildContext context) async {
   if (lowStockItems.isNotEmpty) {
     hasNotificationsNotifier.value = true;
 
+    // ignore: use_build_context_synchronously
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Outofstock(
         lowstockitems: lowStockItems,

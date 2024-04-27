@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'dart:io';
 
@@ -45,6 +45,11 @@ class _CartscreenState extends State<Cartscreen> {
     print('the length of cartlist is ${cartlist.length}');
   }
 
+  Future<void> refreshcart() async {
+    await initalisecart();
+    setState(() {});
+  }
+
   void calculatetotalprice() {
     double total = 0;
     for (var cartitem in cartlist) {
@@ -87,6 +92,14 @@ class _CartscreenState extends State<Cartscreen> {
                                   fontSize: 29,
                                   fontWeight: FontWeight.w500),
                             ),
+                            SizedBox(
+                              width: 190,
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  refreshcart();
+                                },
+                                icon: Icon(Icons.refresh)),
                             IconButton(
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -276,7 +289,7 @@ class _CartscreenState extends State<Cartscreen> {
                         initalisecart();
                       }
                     });
-                    clearBox();
+                    // clearBox();
 
                     //  print('produtname :${cartlist}');
                   },
@@ -308,12 +321,12 @@ class _CartscreenState extends State<Cartscreen> {
               child: const Text("Cancel")),
           TextButton(
               onPressed: () {
-                print(
-                    "Total stock when cart deleting: ${cartmodel.item!.availablestock}");
+                //print(
+                //    "Total stock when cart deleting: ${cartmodel.item!.availablestock}");
                 cartmodel.item!.availablestock = (cartmodel.quantity! +
                         int.parse(cartmodel.item!.availablestock!))
                     .toString();
-                print('After deletion: ${cartmodel.item!.availablestock}');
+                //     print('After deletion: ${cartmodel.item!.availablestock}');
                 Hive.box<Itempage>('itembox')
                     .put(cartmodel.itemkey, cartmodel.item!);
                 deletecart(key);
@@ -354,7 +367,7 @@ class _CartscreenState extends State<Cartscreen> {
                           .firstWhere((cart) => cart.cartkey == cartkey);
                       updatedcart.quantity = newquantity;
                       updatecart(cartkey, updatedcart);
-                      print("updated quantity ${updatedquantity}");
+                      //    print("updated quantity ${updatedquantity}");
                       calculatetotalprice();
                       Navigator.pop(context);
                     }

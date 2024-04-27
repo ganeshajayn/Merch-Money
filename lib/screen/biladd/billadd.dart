@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:merchmoney/models/transactionmodel.dart';
 import 'package:merchmoney/screen/billsection/billingpage.dart';
 import 'package:merchmoney/screen/billsection/funcions.dart';
+import 'package:merchmoney/screen/cartpage/functions.dart';
 
 import 'package:merchmoney/widgets/textfield.dart';
 
@@ -18,7 +19,7 @@ class Billingaddscreen extends StatefulWidget {
   final List<String>? productsname;
   final List<int>? quantities;
   final double? totalprice;
-  final Future? initializecart;
+  final Future<void> initializecart;
   final List<String>? categoryname;
   @override
   State<Billingaddscreen> createState() => _BillingaddscreenState();
@@ -28,6 +29,16 @@ TextEditingController usernamecontroller = TextEditingController();
 TextEditingController phonenumbercontroller = TextEditingController();
 
 class _BillingaddscreenState extends State<Billingaddscreen> {
+  @override
+  void initState() {
+    super.initState();
+    initilizecart();
+  }
+
+  Future<void> initilizecart() async {
+    await widget.initializecart;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -47,7 +58,7 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
       ),
       actions: [
         ElevatedButtonnWidget(
-            onpressed: () {
+            onpressed: () async {
               if (usernamecontroller.text.isEmpty ||
                   phonenumbercontroller.text.isEmpty) {
                 // Show a dialog or a snackbar indicating that fields are empty
@@ -82,14 +93,19 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                     currentrate: widget.currentrate);
                 addtransaction(key, value);
                 Navigator.of(context).pop();
+
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const Transactionscreen(),
                 ));
               }
+              await clearBox();
+              setState(() {
+                initilizecart();
+              });
             },
             buttontext: "Save"),
         TextButtonWidget(
-            onpressed: () {
+            onpressed: () async {
               String? username = usernamecontroller.text.isNotEmpty
                   ? usernamecontroller.text
                   : "Unknown";
@@ -111,9 +127,14 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                   category: widget.categoryname);
               addtransaction(key, value);
               Navigator.of(context).pop();
+
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const Transactionscreen(),
               ));
+              await clearBox();
+              setState(() {
+                initilizecart();
+              });
             },
             textbutton: "Skip & Continue"),
       ],

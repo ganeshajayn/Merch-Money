@@ -78,14 +78,14 @@ class _SettingscreenState extends State<Settingscreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Logout"),
-          content: Text("Are you sure you want to logout?"),
+          title: const Text("Logout"),
+          content: const Text("Are you sure you want to logout?"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
@@ -94,7 +94,7 @@ class _SettingscreenState extends State<Settingscreen> {
                   builder: (context) => const Introscreen(),
                 ));
               },
-              child: Text("Logout"),
+              child: const Text("Logout"),
             ),
           ],
         );
@@ -233,17 +233,17 @@ class _SettingscreenState extends State<Settingscreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   WidgetListTile(
-                      tileColor: Color(0xFF030655),
+                      tileColor: const Color(0xFF030655),
                       leaddingtileIcon: Icons.person,
                       titleText: "About Us ",
                       onTapAction: () {
                         showAboutDialog(
-                          context: context,
-                          applicationName: 'MerchMoney',
-                        );
+                            context: context,
+                            applicationName: 'MerchMoney',
+                            applicationVersion: "version 1");
                       }),
                   WidgetListTile(
-                      tileColor: Color(0xFF030655),
+                      tileColor: const Color(0xFF030655),
                       leaddingtileIcon: Icons.privacy_tip_sharp,
                       titleText: "Privacy&policy",
                       onTapAction: () {
@@ -251,12 +251,15 @@ class _SettingscreenState extends State<Settingscreen> {
                             "https://www.freeprivacypolicy.com/live/34d0e172-7976-407c-878e-81ba571d4587"));
                       }),
                   WidgetListTile(
-                      tileColor: Color(0xFF030655),
+                      tileColor: const Color(0xFF030655),
                       leaddingtileIcon: Icons.person,
                       titleText: "Terms & conditions ",
-                      onTapAction: () {}),
+                      onTapAction: () {
+                        launchUrl(Uri.parse(
+                            "https://www.app-privacy-policy.com/live.php?token=ZP09mKQoPNw7Zsec4PhdanKrZuIl1HwJ"));
+                      }),
                   WidgetListTile(
-                      tileColor: Color(0xFF030655),
+                      tileColor: const Color(0xFF030655),
                       leaddingtileIcon: Icons.logout_outlined,
                       titleText: "Logout",
                       onTapAction: () {
