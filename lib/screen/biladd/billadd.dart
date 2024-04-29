@@ -81,22 +81,35 @@ class _BillingaddscreenState extends State<Billingaddscreen> {
                 );
               } else {
                 // Proceed with saving the transaction
+                String? username = usernamecontroller.text.isNotEmpty
+                    ? usernamecontroller.text
+                    : "Unknown";
+                String? phoneNumber = phonenumbercontroller.text.isNotEmpty
+                    ? phonenumbercontroller.text
+                    : "N/A";
+
+                // Navigate to the next screen
                 String key = DateTime.now().microsecondsSinceEpoch.toString();
                 final value = Transactionmodel(
-                    username: usernamecontroller.text,
-                    phonenumber: phonenumbercontroller.text,
+                    username: username,
+                    phonenumber: phoneNumber,
                     totalprice: widget.totalprice,
                     dateTime: DateTime.now(),
                     transactionkey: key,
                     productname: widget.productsname,
                     quantity: widget.quantities,
-                    currentrate: widget.currentrate);
+                    currentrate: widget.currentrate,
+                    category: widget.categoryname);
                 addtransaction(key, value);
                 Navigator.of(context).pop();
 
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const Transactionscreen(),
                 ));
+                await clearBox();
+                setState(() {
+                  initilizecart();
+                });
               }
               await clearBox();
               setState(() {
