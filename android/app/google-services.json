@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:356986784214:android:f7068c57c21d6cb2dcfc77",
         "android_client_info": {
-          "package_name": "com.example.merchmoney"
+          "package_name": "in.ganesh.merchmoney"
         }
       },
       "oauth_client": [],
